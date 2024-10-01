@@ -2,9 +2,14 @@
 
 ![workflow](https://github.com/TvonSween/sem-one/actions/workflows/main.yml/badge.svg)
 
+![Develop build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml)
+
 [![LICENSE](https://img.shields.io/github/license/TvonSween/sem-one.svg?style=flat-square)](https://github.com/TvonSween/sem-one/blob/master/LICENSE)
 
 [![Releases](https://img.shields.io/github/release/TvonSween/sem-one/all.svg?style=flat-square)](https://github.com/TvonSween/sem-one/releases)
+
+# DevOps
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/TvonSween/sem-one/"workflow for my Hello World App"/<branch>?style=flat-square)
 
 ## Members
 Kemar Hinds  
