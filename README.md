@@ -1,5 +1,11 @@
 # Group One DevOps project
 
+![workflow](https://github.com/TvonSween/sem-one/actions/workflows/main.yml/badge.svg)
+
+[![LICENSE](https://img.shields.io/github/license/TvonSween/sem-one.svg?style=flat-square)](https://github.com/TvonSween/sem-one/blob/master/LICENSE)
+
+[![Releases](https://img.shields.io/github/release/TvonSween/sem-one/all.svg?style=flat-square)](https://github.com/TvonSween/sem-one/releases)
+
 ## Members
 Kemar Hinds  
 Shannon Kane  
