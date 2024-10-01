@@ -20,3 +20,16 @@ Tess Vaughan
 
 ## Week 6 Grading
 [List of tasks to be completed](https://github.com/Kevin-Sim/SET09803-DevOps-Global-Online/blob/master/assessment/README.md#review-meeting--week-6)
+
+## Workflow 
+Workflow should be:
+* Pull the latest develop branch. 
+* Start a new feature branch. 
+* Once feature is finished, create JAR file. 
+* Update and test Docker configuration with GitHub Actions. 
+* Update feature branch with develop to ensure feature is up-to-date. 
+* Check feature branch still works. 
+* Merge feature branch into develop. 
+* Repeat 2-7 until release is ready. 
+* Merge develop branch into release and create release. 
+* Merge release into master and develop.
