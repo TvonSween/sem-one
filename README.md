@@ -28,11 +28,15 @@ Tess Vaughan
 [List of tasks to be completed](https://github.com/Kevin-Sim/SET09803-DevOps-Global-Online/blob/master/assessment/README.md#review-meeting--week-6)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Workflow 
 Workflow should be:
 =======
 ## Workflow
 >>>>>>> master
+=======
+## Workflow
+>>>>>>> 33d2e8035341b64e27db2cc9124be5e6ed44f7a9
 * Pull the latest develop branch. 
 * Start a new feature branch. 
 * Once feature is finished, create JAR file. 
@@ -43,7 +47,11 @@ Workflow should be:
 * Repeat 2-7 until release is ready. 
 * Merge develop branch into release and create release. 
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Merge release into master and develop.
 =======
 * Merge release into master and develop.
 >>>>>>> master
+=======
+* Merge release into master and develop.
+>>>>>>> 33d2e8035341b64e27db2cc9124be5e6ed44f7a9
