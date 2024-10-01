@@ -11,6 +11,10 @@ public class Reports {
     public void extract(ResultSet rset, String fileName, String[] cols) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
+            for (String col : cols) {
+                sb.append(col).append("\t");
+            }
+            sb.append("\r\n");
             //cycle
             while (rset.next()) {
                 for (int i = 0; i < cols.length; i++) {
