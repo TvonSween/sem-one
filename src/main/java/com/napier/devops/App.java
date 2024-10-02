@@ -1,8 +1,38 @@
 package com.napier.devops;
 
+import com.napier.devops.helpers.UserSelectionService;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Map;
+
 public class App {
+    /**
+     * The Main app.
+     */
     public static void main(String[] args)
     {
-        System.out.println("Boo yah!");
+        // If args not provided, the default port+url
+        String databaseUrl = args.length < 1 ? "localhost:33060" : args[0];
+        try {
+             // Connect to the db.
+            Connection con = DBconnector.connect(databaseUrl, 10000);
+            if (con == null) return;
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create an instance for the reports
+            Reports report = new Reports();
+            // Get user inputs
+            UserSelectionService userSelectionService = new UserSelectionService();
+            Map<String, Integer> userInputs = userSelectionService.getUserInput();
+            // Process the user selections and extract report and query
+            userSelectionService.processUserSelection(userInputs.get("question"), report, stmt, userInputs.get("userInput"));
+            // Disconnect form db
+            DBconnector.disconnect();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 }
