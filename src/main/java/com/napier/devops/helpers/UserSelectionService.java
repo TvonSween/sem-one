@@ -49,7 +49,7 @@ public class UserSelectionService {
         // Set of question ids related to questions with extra user input
         final Set<Integer> questionsExtraUserInput = Set.of(
                 4,5,6
-        );;
+        );
         int questionSelected = 0;
         int userInput = -1;
 
