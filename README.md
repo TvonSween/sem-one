@@ -1,16 +1,5 @@
 # Group One DevOps project
 
-![workflow](https://github.com/TvonSween/sem-one/actions/workflows/main.yml/badge.svg)
-
-![Develop build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml)
-
-[![LICENSE](https://img.shields.io/github/license/TvonSween/sem-one.svg?style=flat-square)](https://github.com/TvonSween/sem-one/blob/master/LICENSE)
-
-[![Releases](https://img.shields.io/github/release/TvonSween/sem-one/all.svg?style=flat-square)](https://github.com/TvonSween/sem-one/releases)
-
-# DevOps
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/TvonSween/sem-one/"workflow for my Hello World App"/<branch>?style=flat-square)
-
 * Workflows ![workflow](https://github.com/TvonSween/sem-one/actions/workflows/main.yml/badge.svg)
 * Master ![Master build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml?branch=master)
 * Develop ![Develop build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml?branch=develop)
@@ -51,31 +40,3 @@ Tess Vaughan
 * Merge develop branch into release and create release.
 * Merge release into master and develop.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-## Workflow 
-Workflow should be:
-=======
-## Workflow
->>>>>>> master
-=======
-## Workflow
->>>>>>> 33d2e8035341b64e27db2cc9124be5e6ed44f7a9
-* Pull the latest develop branch. 
-* Start a new feature branch. 
-* Once feature is finished, create JAR file. 
-* Update and test Docker configuration with GitHub Actions. 
-* Update feature branch with develop to ensure feature is up-to-date. 
-* Check feature branch still works. 
-* Merge feature branch into develop. 
-* Repeat 2-7 until release is ready. 
-* Merge develop branch into release and create release. 
-<<<<<<< HEAD
-<<<<<<< HEAD
-* Merge release into master and develop.
-=======
-* Merge release into master and develop.
->>>>>>> master
-=======
-* Merge release into master and develop.
->>>>>>> 33d2e8035341b64e27db2cc9124be5e6ed44f7a9
