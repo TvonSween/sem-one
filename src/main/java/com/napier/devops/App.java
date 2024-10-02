@@ -1,35 +1,33 @@
 package com.napier.devops;
 
+import com.napier.devops.helpers.UserSelectionService;
+
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 
 public class App {
-     /**
-     * Connection to MySQL database.
+    /**
+     * The Main app.
      */
     public static void main(String[] args)
     {
+        // If args not provided, the default port+url
         String databaseUrl = args.length < 1 ? "localhost:33060" : args[0];
         try {
+             // Connect to the db.
             Connection con = DBconnector.connect(databaseUrl, 10000);
             if (con == null) return;
-            Reports report = new Reports();
             // Create an SQL statement
             Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String sql = "select * from country order by population desc";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(sql);
-
-            report.extract(rset, "country", new String[]{
-                    ReportColumns.Countries.Code.toString(),
-                    ReportColumns.Countries.Name.toString(),
-                    ReportColumns.Countries.Continent.toString(),
-                    ReportColumns.Countries.Region.toString(),
-                    ReportColumns.Countries.Population.toString(),
-                    ReportColumns.Countries.Capital.toString()
-            });
+            // Create an instance for the reports
+            Reports report = new Reports();
+            // Get user inputs
+            UserSelectionService userSelectionService = new UserSelectionService();
+            Map<String, Integer> userInputs = userSelectionService.getUserInput();
+            // Process the user selections and extract report and query
+            userSelectionService.processUserSelection(userInputs.get("question"), report, stmt, userInputs.get("userInput"));
+            // Disconnect form db
             DBconnector.disconnect();
         }
         catch (Exception e) {
