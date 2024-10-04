@@ -1,8 +1,7 @@
 package com.napier.devops.helpers;
 
 import com.napier.devops.Reports;
-import com.napier.devops.reports.PopulationOfWorldList;
-import com.napier.devops.reports.TopCountriesPerPopulation;
+import com.napier.devops.reports.CountriesList;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,8 +21,8 @@ public class UserSelectionService {
      * Mapping the main questionId by pushing key-value data to the processors Map
      */
     public UserSelectionService() {
-        processors.put(1, new PopulationOfWorldList());
-        processors.put(4, new TopCountriesPerPopulation());
+        processors.put(1, new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
     }
     /**
      * Extract the results to a .csv file.
@@ -51,7 +50,7 @@ public class UserSelectionService {
                 4,5,6
         );
         int questionSelected = 0;
-        int userInput = -1;
+        int userInput = 0;
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -60,6 +59,7 @@ public class UserSelectionService {
         System.out.println("2. All the countries in a continent organised by largest population to smallest");
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
+        // Add the rest of the questions
         System.out.println("\n");
 
         questionSelected = read_range(keyboard, 1, 32);
@@ -73,6 +73,14 @@ public class UserSelectionService {
             "question", questionSelected,
             "userInput", userInput
         );
+    }
+
+    public boolean shouldSelect() {
+        {
+            Scanner keyboard = new Scanner(System.in);
+            System.out.println("Do you want to see other data? (Y/N)");
+            return keyboard.nextLine().equalsIgnoreCase("y");
+        }
     }
 
     private static int getN()

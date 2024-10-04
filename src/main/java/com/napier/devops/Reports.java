@@ -21,6 +21,7 @@ public class Reports {
     public void extract(ResultSet rset, String fileName, String[] cols) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
+            sb.append("> ").append(fileName).append("\r\n\n");
             for (String col : cols) {
                 sb.append(col).append(",");
             }

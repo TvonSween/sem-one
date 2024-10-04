@@ -11,18 +11,26 @@ import java.sql.Statement;
 /**
  * Generate the PopulationOfWorldList file from the sql query.
  */
-public class PopulationOfWorldList implements IUserSelectionProcessor {
+public class CountriesList implements IUserSelectionProcessor {
+    String fileName;
+    String sqlQueryString;
+
+    public CountriesList(String filename, String sqlQueryString) {
+        this.sqlQueryString = sqlQueryString;
+        this.fileName = filename;
+    }
     @Override
     public void processUserSelection(Reports report, Statement stmt, Integer userInput) throws SQLException {
-        // Create string for SQL statement
-        String sql = "SELECT country.code as Code, country.Name, Continent, Region, country.Population, city.Name as Capital FROM country JOIN city ON country.Capital = city.ID ORDER BY Population DESC";
+        if (userInput > 0) {
+            this.sqlQueryString = this.sqlQueryString + " LIMIT  " + userInput + ";";
+        }
         // Execute SQL statement
-        ResultSet rset = stmt.executeQuery(sql);
+        ResultSet rset = stmt.executeQuery(this.sqlQueryString);
 
         try {
             // File name may match the class name for readability
             // Columns provided by the Reports.Columns enum
-            report.extract(rset, "PopulationOfWorldList", new String[]{
+            report.extract(rset, this.fileName, new String[]{
                     Reports.Columns.Code.toString(),
                     Reports.Columns.Name.toString(),
                     Reports.Columns.Continent.toString(),
