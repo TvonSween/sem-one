@@ -3,7 +3,6 @@ package com.napier.devops;
 import com.napier.devops.helpers.UserSelectionService;
 
 import java.sql.Connection;
-import java.sql.Statement;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;

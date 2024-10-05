@@ -3,7 +3,6 @@ package com.napier.devops.reports;
 import com.napier.devops.Reports;
 import com.napier.devops.helpers.IUserSelectionProcessor;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
