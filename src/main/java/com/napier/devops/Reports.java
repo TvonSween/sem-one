@@ -21,26 +21,30 @@ public class Reports {
     public void extract(ResultSet rset, String fileName, String[] cols) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append("> ").append(fileName).append("\r\n\n");
-            for (String col : cols) {
-                sb.append(col).append(",");
+            for (int i = 0; i < cols.length; i++) {
+                sb.append(cols[i]);
+                if (i != cols.length - 1) {
+                    sb.append(",");
+                }
             }
-            sb.append("\r\n\n");
+            sb.append("\n");
             //cycle
             while (rset.next()) {
                 for (int i = 0; i < cols.length; i++) {
-                    sb.append(rset.getString(cols[i])).append(",");
+                    sb.append(rset.getString(cols[i]));
                     if (i == cols.length - 1) {
-                        sb.append("\r\n");
+                        sb.append("\n");
+                    } else {
+                        sb.append(",");
                     }
                 }
             }
-            new File("./tmp/").mkdir();
+            new File("./tmp/");
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter("./tmp/" + fileName + ".csv"));
             writer.write(sb.toString());
             writer.close();
-            System.out.println(sb.toString());
+            System.out.println(sb);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get details");
