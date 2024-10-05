@@ -3,12 +3,10 @@ package com.napier.devops.helpers;
 import com.napier.devops.Reports;
 import com.napier.devops.reports.CountriesList;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Manages the user selection and proceed the request to the mapped method
@@ -28,13 +26,13 @@ public class UserSelectionService {
      * Extract the results to a .csv file.
      * @param questionId The questionId which is the question id related to assessment.
      * @param report The instance of the Report.
-     * @param stmt The sql statement that will be executed in the reports.
+     * @param con The sql statement that will be executed in the reports.
      * @param userInput The extra user input needed for specific questions.
      */
-    public void processUserSelection(Integer questionId, Reports report, Statement stmt, Integer userInput) throws SQLException {
+    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput) throws SQLException {
         IUserSelectionProcessor processor = processors.get(questionId);
         if (processor != null) {
-            processor.processUserSelection(report, stmt, userInput);
+            processor.processUserSelection(report, con, userInput);
         } else {
             throw new IllegalArgumentException("Unsupported questionId: " + questionId);
         }
@@ -62,12 +60,14 @@ public class UserSelectionService {
         // Add the rest of the questions
         System.out.println("\n");
 
-        questionSelected = read_range(keyboard, 1, 32);
-
-        // Get the response of the extra question - N
-        if(questionsExtraUserInput.contains(questionSelected))
-        {
-            userInput = getN();
+        try {
+            questionSelected = read_range(keyboard, 1, 32);
+            // Get the response of the extra question - N
+            if (questionsExtraUserInput.contains(questionSelected)) {
+                userInput = getN();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Not a valid input\n");
         }
         return Map.of(
             "question", questionSelected,
@@ -79,7 +79,11 @@ public class UserSelectionService {
         {
             Scanner keyboard = new Scanner(System.in);
             System.out.println("Do you want to see other data? (Y/N)");
-            return keyboard.nextLine().equalsIgnoreCase("y");
+            try {
+                return keyboard.nextLine().equalsIgnoreCase("y");
+            } catch (InputMismatchException e) {
+                return false;
+            }
         }
     }
 
