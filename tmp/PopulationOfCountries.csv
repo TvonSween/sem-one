@@ -21,7 +21,7 @@ THA,Thailand,Asia,Southeast Asia,61399000,Bangkok
 GBR,United Kingdom,Europe,British Islands,59623400,London
 FRA,France,Europe,Western Europe,59225700,Paris
 ITA,Italy,Europe,Southern Europe,57680000,Roma
-COD,Congo, The Democratic Republic of the,Africa,Central Africa,51654000,Kinshasa
+COD,Congo The Democratic Republic of the,Africa,Central Africa,51654000,Kinshasa
 UKR,Ukraine,Europe,Eastern Europe,50456000,Kyiv
 KOR,South Korea,Asia,Eastern Asia,46844000,Seoul
 MMR,Myanmar,Asia,Southeast Asia,45611000,Rangoon (Yangon)
@@ -188,12 +188,12 @@ GUM,Guam,Oceania,Micronesia,168000,Agaña
 LCA,Saint Lucia,North America,Caribbean,154000,Castries
 MYT,Mayotte,Africa,Eastern Africa,149000,Mamoutzou
 STP,Sao Tome and Principe,Africa,Central Africa,147000,São Tomé
-FSM,Micronesia, Federated States of,Oceania,Micronesia,119000,Palikir
+FSM,Micronesia Federated States of,Oceania,Micronesia,119000,Palikir
 VCT,Saint Vincent and the Grenadines,North America,Caribbean,114000,Kingstown
 ABW,Aruba,North America,Caribbean,103000,Oranjestad
 TON,Tonga,Oceania,Polynesia,99000,Nuku´alofa
 GRD,Grenada,North America,Caribbean,94000,Saint George´s
-VIR,Virgin Islands, U.S.,North America,Caribbean,93000,Charlotte Amalie
+VIR,Virgin Islands U.S.,North America,Caribbean,93000,Charlotte Amalie
 KIR,Kiribati,Oceania,Micronesia,83000,Bairiki
 AND,Andorra,Europe,Southern Europe,78000,Andorra la Vella
 MNP,Northern Mariana Islands,Oceania,Micronesia,78000,Garapan
@@ -211,7 +211,7 @@ MCO,Monaco,Europe,Western Europe,34000,Monaco-Ville
 LIE,Liechtenstein,Europe,Western Europe,32300,Vaduz
 SMR,San Marino,Europe,Southern Europe,27000,San Marino
 GIB,Gibraltar,Europe,Southern Europe,25000,Gibraltar
-VGB,Virgin Islands, British,North America,Caribbean,21000,Road Town
+VGB,Virgin Islands British,North America,Caribbean,21000,Road Town
 COK,Cook Islands,Oceania,Polynesia,20000,Avarua
 PLW,Palau,Oceania,Micronesia,19000,Koror
 TCA,Turks and Caicos Islands,North America,Caribbean,17000,Cockburn Town
