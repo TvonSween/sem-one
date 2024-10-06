@@ -16,7 +16,7 @@ public class DBconnector {
      * @param conString The location of the database server.
      * @param delay The delay (in milliseconds) between retry attempts.
      */
-    public static Connection connect(String conString, int delay) {
+    public Connection connect(String conString, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -53,7 +53,7 @@ public class DBconnector {
     /**
      * Closes the database connection.
      */
-    public static void disconnect() {
+    public void disconnect(Connection con) {
         if (con != null) {
             try {
                 con.close();

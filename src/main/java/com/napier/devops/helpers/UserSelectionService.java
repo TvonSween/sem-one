@@ -98,9 +98,7 @@ public class UserSelectionService {
      * @return the user input
      */
     private static int read_range (Scanner scanner, int low, int high) {
-        int value;
-        System.out.print("Please enter a value between " + low + " and " + high + ": ");
-        value = scanner.nextInt();
+        int value = low - 1;
         while (value < low || value > high) {
             System.out.print("Please enter a value between " + low + " and " + high + ": ");
             value = scanner.nextInt();

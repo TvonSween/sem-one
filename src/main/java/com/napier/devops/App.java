@@ -15,15 +15,18 @@ public class App {
     public static void main(String[] args)
     {
         boolean shouldQuestion = true;
+        DBconnector db;
+        Connection con;
         // If args not provided, the default port+url
-        String databaseUrl = args.length < 1 ? "localhost:3306" : args[0];
+        String databaseUrl = args.length < 1 ? "localhost:33060" : args[0];
         try {
-             // Connect to the db.
-            Connection con = DBconnector.connect(databaseUrl, 10000);
+            // Connect to the db.
+            db = new DBconnector();
+            // Create an SQL connection
+            con = db.connect(databaseUrl, 0);
             if (con == null) {
-                System.exit(0);
+                throw new RuntimeException("Failed to connect to database");
             }
-            // Create an SQL statement
             // Create an instance for the reports
             Reports report = new Reports();
             // Get user inputs
@@ -36,7 +39,7 @@ public class App {
                 shouldQuestion = userSelectionService.shouldSelect();
             }
             // Disconnect form db
-            DBconnector.disconnect();
+            db.disconnect(con);
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, "An error occurred " + e.getMessage());
