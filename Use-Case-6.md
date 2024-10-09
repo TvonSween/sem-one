@@ -1,4 +1,4 @@
-## Use Case 6: View Language Demographics 
+# Use Case 6: View Language Demographics 
 
 ## Goal in Context: 
 - The statistician wants to understand linguistic demographics and their significance worldwide. 
