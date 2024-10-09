@@ -1,4 +1,4 @@
-## Use Case 7: Retrieve Total Population of the World 
+# Use Case 7: Retrieve Total Population of the World 
 
 ## Goal in Context: 
 - The statistician wants to understand global demographic context. 
