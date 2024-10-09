@@ -1,4 +1,4 @@
-## Use Case 8: View Top N Populated Cities in a Region 
+# Use Case 8: View Top N Populated Cities in a Region 
 
 ## Goal in Context: 
 - The statistician wants to identify significant urban centers in a specific region. 
