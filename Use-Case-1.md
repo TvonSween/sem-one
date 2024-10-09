@@ -14,7 +14,7 @@
 
 ## Success Condition: 
 
--The statistician successfully views a complete list of countries sorted by population from largest to smallest. 
+- The statistician successfully views a complete list of countries sorted by population from largest to smallest. 
 
 ## Failed Condition: 
 - The statistician is unable to retrieve the list due to system errors, data unavailability, or network issues. 
