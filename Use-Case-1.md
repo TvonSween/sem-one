@@ -34,9 +34,9 @@
 
 ## Extensions: 
 - Data Unavailable: 
- - If the system cannot retrieve population data, it displays an error message indicating the issue and suggests the statistician try again later. 
+  - If the system cannot retrieve population data, it displays an error message indicating the issue and suggests the statistician try again later. 
 - Sorting Error: 
- - If an error occurs during sorting, the system displays a message indicating that the sorting operation failed and offers to display the data in its default order. 
+  - If an error occurs during sorting, the system displays a message indicating that the sorting operation failed and offers to display the data in its default order. 
 
 ## Sub-variations: 
 - The statistician may request to filter the list by specific criteria (e.g., continent, region). 
