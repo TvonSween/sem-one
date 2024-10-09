@@ -1,4 +1,4 @@
-## Use Case 5: Generate Country Report
+# Use Case 5: Generate Country Report
 ## Goal in Context: 
 - The statistician wants to generate a structured report about countries for analysis. 
 
