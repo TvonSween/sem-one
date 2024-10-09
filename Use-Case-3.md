@@ -1,4 +1,4 @@
-## Use Case 2: View Countries by Continent
+# Use Case 2: View Countries by Continent
 
 ## Goal in Context: 
 - The statistician wants to analyze population distribution within a specific continent. 
