@@ -1,4 +1,4 @@
-## Use Case 4: View All Cities by Population 
+# Use Case 4: View All Cities by Population 
 ## Goal in Context: 
 - The statistician wants to identify the most populated cities globally. 
 
