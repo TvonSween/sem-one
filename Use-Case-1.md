@@ -1,4 +1,4 @@
-## Use Case 1: View All Countries by Population 
+# Use Case 1: View All Countries by Population 
 
 ## Goal in Context: 
 - The statistician wants to analyze global population distribution by viewing all countries ranked by population size. 
