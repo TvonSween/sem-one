@@ -4,7 +4,7 @@
 - The statistician wants to analyze global population distribution by viewing all countries ranked by population size. 
 
 ## Scope: 
-Population Information. 
+- Population Information. 
 
 ## Level: 
 - User goal 
@@ -20,7 +20,7 @@ Population Information.
 - The statistician is unable to retrieve the list due to system errors, data unavailability, or network issues. 
 
 ## Primary Actor: 
-Statistician. 
+- Statistician. 
 
 ## Trigger: 
 - The statistician navigates to the population data section and selects the option to view countries sorted by population. 
