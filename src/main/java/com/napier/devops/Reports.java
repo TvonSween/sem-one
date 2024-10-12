@@ -6,21 +6,67 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
 
-
+/**
+ * The {@code Reports} class provides functionalities to extract data from a
+ * {@link ResultSet} into a CSV file. It allows specifying which columns should
+ * be extracted and saved into the CSV file.
+ */
 public class Reports {
-    // Column enums that can be used in the reports
-    public enum Columns {
-        Code, Name, Continent, Population, Capital, Region
-    }
+
     /**
-     * Extract the results to a .csv file.
-     * @param rset The ResultSet of the query from db.
-     * @param fileName The file name.
-     * @param cols The columns that should be extracted.
+     * Enum representing the columns that can be extracted for reports.
+     */
+    public enum Columns {
+        /**
+         * Represents the 'Code' column.
+         */
+        Code,
+        /**
+         * Represents the 'Name' column.
+         */
+        Name,
+        /**
+         * Represents the 'Continent' column.
+         */
+        Continent,
+        /**
+         * Represents the 'Population' column.
+         */
+        Population,
+        /**
+         * Represents the 'Capital' column.
+         */
+        Capital,
+        /**
+         * Represents the 'Region' column.
+         */
+        Region
+    }
+
+    /**
+     * Extracts the specified columns from the provided {@link ResultSet} and writes
+     * them into a CSV file with the given file name.
+     *
+     * @param rset     The {@link ResultSet} containing the query results from the database.
+     * @param fileName The name of the file where the CSV will be saved (without the extension).
+     * @param cols     An array of column names (as {@link String}) that should be extracted from the result set.
+     *
+     * @throws IOException If an I/O error occurs when writing to the file.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * {@code
+     * ResultSet rs = ...;  // Obtained from a database query
+     * String[] columns = {"Name", "Population"};
+     * Reports report = new Reports();
+     * report.extract(rs, "world_population", columns);
+     * }
+     * </pre>
      */
     public void extract(ResultSet rset, String fileName, String[] cols) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
+            // Append column headers
             for (int i = 0; i < cols.length; i++) {
                 sb.append(cols[i]);
                 if (i != cols.length - 1) {
@@ -28,7 +74,8 @@ public class Reports {
                 }
             }
             sb.append("\n");
-            //cycle
+
+            // Append data rows
             while (rset.next()) {
                 for (int i = 0; i < cols.length; i++) {
                     sb.append(rset.getString(cols[i]));
@@ -39,6 +86,8 @@ public class Reports {
                     }
                 }
             }
+
+            // Create directory if not exists and write to file
             new File("./tmp/");
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter("./tmp/" + fileName + ".csv"));
