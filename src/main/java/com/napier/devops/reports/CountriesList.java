@@ -8,22 +8,42 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Generate the PopulationOfWorldList file from the sql query.
+ * The {@code CountriesList} class implements the {@link IUserSelectionProcessor}
+ * interface and is responsible for generating a report of countries based on
+ * a specified SQL query. It handles the execution of the query and the
+ * extraction of results into a specified file format.
  */
 public class CountriesList implements IUserSelectionProcessor {
-    String fileName;
-    String sqlQueryString;
-    ResultSet rset;
+
+    private String fileName;        // Name of the output file
+    private String sqlQueryString;  // SQL query string to execute
+    private ResultSet rset;         // ResultSet object to hold query results
     private static final Logger logger = Logger.getLogger(CountriesList.class.getName());
 
+    /**
+     * Constructs a {@code CountriesList} instance with the specified filename and SQL query.
+     *
+     * @param filename       The name of the file to which the results will be written.
+     * @param sqlQueryString The SQL query string used to fetch the country data.
+     */
     public CountriesList(String filename, String sqlQueryString) {
         this.sqlQueryString = sqlQueryString;
         this.fileName = filename;
     }
+
+    /**
+     * Processes the user selection by executing the SQL query and extracting the results
+     * into a CSV file. If the user specifies a limit, the query will be modified to include
+     * the limit on the number of results returned.
+     *
+     * @param report    The instance of the {@link Reports} class used to generate the report.
+     * @param con       The SQL connection to execute queries against the database.
+     * @param userInput The additional user input required for limiting the number of results.
+     */
     @Override
     public void processUserSelection(Reports report, Connection con, Integer userInput) {
         if (userInput > 0) {
-            this.sqlQueryString = this.sqlQueryString + " LIMIT  " + userInput + ";";
+            this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ";";
         }
         try {
             // Prepare statement
@@ -31,7 +51,7 @@ public class CountriesList implements IUserSelectionProcessor {
             // Execute SQL statement
             rset = stmt.executeQuery();
         } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Error while executing the query" + ex.getMessage());
+            logger.log(Level.SEVERE, "Error while executing the query: " + ex.getMessage());
         }
 
         try {
@@ -46,7 +66,7 @@ public class CountriesList implements IUserSelectionProcessor {
                     Reports.Columns.Capital.toString()
             });
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error while processing the report" + e.getMessage());
+            logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
         }
     }
 }
