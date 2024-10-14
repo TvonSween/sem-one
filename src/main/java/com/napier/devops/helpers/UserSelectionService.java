@@ -25,6 +25,7 @@ public class UserSelectionService {
      */
     public UserSelectionService() {
         processors.put(1, new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put(2, new CountriesList("PopulationOfContinents", QueryConstants.CONTINENTS_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
     }
 
@@ -56,7 +57,7 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 6);
+        final Set<Integer> questionsExtraUserInput = Set.of(2, 4, 5, 6);
         int questionSelected = 0;
         int userInput = 0;
 
@@ -74,7 +75,12 @@ public class UserSelectionService {
             questionSelected = read_range(keyboard, 1, 32);
             // Get the response for the extra question - N
             if (questionsExtraUserInput.contains(questionSelected)) {
-                userInput = getN();
+                if (questionSelected == 2) {
+                    userInput = getContinent();
+                }
+                if (questionSelected == 4) {
+                    userInput = getN();
+                }
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
@@ -110,6 +116,24 @@ public class UserSelectionService {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
         return read_range(keyboard, 1, 100);
+    }
+
+    /**
+     * Prompts the user for the continent they are interested in.
+     *
+     * @return The id of the continent specified by the user.
+     */
+    private static int getContinent() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please specify the number of the continent you're interested in:");
+        System.out.println("1: Asia");
+        System.out.println("2: Africa");
+        System.out.println("3: Europe");
+        System.out.println("4: North America");
+        System.out.println("5: South America");
+        System.out.println("6: Oceania");
+        System.out.println("7: Antarctica");
+        return read_range(keyboard, 1, 7);
     }
 
     /**

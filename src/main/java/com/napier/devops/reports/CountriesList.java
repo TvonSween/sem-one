@@ -31,6 +31,8 @@ public class CountriesList implements IUserSelectionProcessor {
         this.fileName = filename;
     }
 
+    public String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
+
     /**
      * Processes the user selection by executing the SQL query and extracting the results
      * into a CSV file. If the user specifies a limit, the query will be modified to include
@@ -43,8 +45,14 @@ public class CountriesList implements IUserSelectionProcessor {
     @Override
     public void processUserSelection(Reports report, Connection con, Integer userInput) {
         if (userInput > 0) {
-            this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ";";
-        }
+            if (this.fileName == "PopulationOfContinents") {
+                System.out.println("Continent: " + continents[userInput - 1]);
+                this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
+            };
+            if (this.fileName == "PopulationOfRegions") {
+                this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ";";
+            };
+        };
         try {
             // Prepare statement
             PreparedStatement stmt = con.prepareStatement(this.sqlQueryString);
