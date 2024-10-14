@@ -3,6 +3,7 @@ services:
   # Build app from Dockerfile in same folder
   app:
     build: .
+    stdin_open: true
 
   # Build the db as name world from the Dockerfile in the db folder
   world:
