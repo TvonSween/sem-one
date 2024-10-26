@@ -119,24 +119,16 @@ public class UserSelectionService {
         return read_range(keyboard, 1, 100);
     }
 
-    private static int getRegion() {
-        Scanner keyboard = new Scanner(System.in);
+    private int getRegion() {
+        String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
+                "Caribbean", "Central America", "South America", "North America",
+                "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
+                "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
+                "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
         System.out.println("Please specify the number of the region you're interested in:");
-        System.out.println("1: Central Asia");
-        System.out.println("2: Eastern Asia");
-        System.out.println("3: South-eastern Asia");
-        System.out.println("4: Southern Asia");
-        System.out.println("5: Western Asia");
-        System.out.println("6: Eastern Europe");
-        System.out.println("7: Northern Europe");
-        System.out.println("2: Southern Europe");
-        System.out.println("3: Western Europe");
-        System.out.println("4: Australia and New Zealand");
-        System.out.println("5: Melanesia");
-        System.out.println("7: Micronesia");
-        System.out.println("2: Polynesia");
-        return read_range(keyboard, 1, 22);
-    }
+        Scanner keyboard = new Scanner(System.in);
+        for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
+        return read_range(keyboard, 1, 23);
     }
 
     /**
