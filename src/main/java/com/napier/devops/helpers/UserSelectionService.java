@@ -25,6 +25,7 @@ public class UserSelectionService {
      */
     public UserSelectionService() {
         processors.put(1, new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
     }
 
@@ -56,7 +57,7 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 6);
+        final Set<Integer> questionsExtraUserInput = Set.of(3, 4, 5, 6);
         int questionSelected = 0;
         int userInput = 0;
 
@@ -74,7 +75,12 @@ public class UserSelectionService {
             questionSelected = read_range(keyboard, 1, 32);
             // Get the response for the extra question - N
             if (questionsExtraUserInput.contains(questionSelected)) {
-                userInput = getN();
+                if (questionSelected == 3) {
+                    userInput = getRegion();
+                }
+                if (questionSelected == 4) {
+                    userInput = getN();
+                }
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
@@ -106,10 +112,31 @@ public class UserSelectionService {
      *
      * @return The number of rows specified by the user.
      */
+
     private static int getN() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
         return read_range(keyboard, 1, 100);
+    }
+
+    private static int getRegion() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please specify the number of the region you're interested in:");
+        System.out.println("1: Central Asia");
+        System.out.println("2: Eastern Asia");
+        System.out.println("3: South-eastern Asia");
+        System.out.println("4: Southern Asia");
+        System.out.println("5: Western Asia");
+        System.out.println("6: Eastern Europe");
+        System.out.println("7: Northern Europe");
+        System.out.println("2: Southern Europe");
+        System.out.println("3: Western Europe");
+        System.out.println("4: Australia and New Zealand");
+        System.out.println("5: Melanesia");
+        System.out.println("7: Micronesia");
+        System.out.println("2: Polynesia");
+        return read_range(keyboard, 1, 22);
+    }
     }
 
     /**
