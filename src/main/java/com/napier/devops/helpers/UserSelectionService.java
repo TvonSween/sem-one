@@ -27,6 +27,7 @@ public class UserSelectionService {
         processors.put(1, new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
     }
 
     /**
@@ -57,7 +58,7 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(3, 4, 5, 6);
+        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 6);
         int questionSelected = 0;
         int userInput = 0;
 
@@ -68,20 +69,21 @@ public class UserSelectionService {
         System.out.println("2. All the countries in a continent organised by largest population to smallest");
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
+        System.out.println("6. The top N populated countries in a region where N is provided by the user.");
         // Add the rest of the questions
         System.out.println("\n");
 
         try {
             questionSelected = read_range(keyboard, 1, 32);
+            if (questionSelected == 3 || questionSelected == 6) {
+                userInput = getRegion();
+                }
             // Get the response for the extra question - N
+
             if (questionsExtraUserInput.contains(questionSelected)) {
-                if (questionSelected == 3) {
-                    userInput = getRegion();
-                }
-                if (questionSelected == 4) {
                     userInput = getN();
-                }
             }
+
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
         }
