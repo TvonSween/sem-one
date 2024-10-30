@@ -41,10 +41,10 @@ public class UserSelectionService {
      * @throws SQLException If an error occurs while executing the SQL query.
      * @throws IllegalArgumentException If the provided question ID is not supported.
      */
-    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput) throws SQLException {
+    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput, Integer limit) throws SQLException {
         IUserSelectionProcessor processor = processors.get(questionId);
         if (processor != null) {
-            processor.processUserSelection(report, con, userInput);
+            processor.processUserSelection(report, con, userInput, limit);
         } else {
             throw new IllegalArgumentException("Unsupported questionId: " + questionId);
         }
@@ -58,9 +58,10 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 6);
+        final Set<Integer> questionsExtraUserInput = Set.of(4, 5);
         int questionSelected = 0;
         int userInput = 0;
+        int limit = 0;
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -75,7 +76,7 @@ public class UserSelectionService {
 
         try {
             questionSelected = read_range(keyboard, 1, 32);
-            if (questionSelected == 3 || questionSelected == 6) {
+            if (questionSelected == 3) {
                 userInput = getRegion();
                 }
             // Get the response for the extra question - N
@@ -84,13 +85,19 @@ public class UserSelectionService {
                     userInput = getN();
             }
 
+            if (questionSelected == 6) {
+                userInput = getRegion();
+                limit = getN();
+            }
+
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
         }
 
         return Map.of(
                 "question", questionSelected,
-                "userInput", userInput
+                "userInput", userInput,
+                "limit", limit
         );
     }
 
@@ -132,6 +139,7 @@ public class UserSelectionService {
         for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
         return read_range(keyboard, 1, 23);
     }
+
 
     /**
      * Reads a number from the user within a specified range.
