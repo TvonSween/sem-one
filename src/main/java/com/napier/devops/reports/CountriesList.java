@@ -46,7 +46,8 @@ public class CountriesList implements IUserSelectionProcessor {
      * @param userInput The additional user input required for limiting the number of results.
      */
     @Override
-    public void processUserSelection(Reports report, Connection con, Integer userInput) {
+    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) {
+
         if (userInput > 0) {
 
             if (this.fileName == "PopulationOfRegionsByCountry") {
@@ -54,12 +55,12 @@ public class CountriesList implements IUserSelectionProcessor {
                 this.sqlQueryString = String.format(this.sqlQueryString, regions[userInput - 1]);
             }
             if (this.fileName == "TopCountriesPerPopulation") {
-               this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ";";
+               this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
             }
             if (this.fileName == "PopulationOfRegionsByCountryWithLimit") {
                 System.out.println("Re: " + regions[userInput - 1]);
                 this.sqlQueryString = String.format(this.sqlQueryString, regions[userInput - 1]);
-                this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ";";
+                this.sqlQueryString = this.sqlQueryString + " LIMIT " + limit + ";";
             }
         }
         try {
@@ -72,16 +73,14 @@ public class CountriesList implements IUserSelectionProcessor {
         }
 
         try {
-            // File name may match the class name for readability
-            // Columns provided by the Reports.Columns enum
             report.extract(rset, this.fileName, new String[]{
-                    Reports.Columns.Code.toString(),
-                    Reports.Columns.Name.toString(),
-                    Reports.Columns.Continent.toString(),
-                    Reports.Columns.Region.toString(),
-                    Reports.Columns.Population.toString(),
-                    Reports.Columns.Capital.toString()
-            });
+                        Reports.Columns.Code.toString(),
+                        Reports.Columns.Name.toString(),
+                        Reports.Columns.Continent.toString(),
+                        Reports.Columns.Region.toString(),
+                        Reports.Columns.Population.toString(),
+                        Reports.Columns.Capital.toString()
+                });
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
         }

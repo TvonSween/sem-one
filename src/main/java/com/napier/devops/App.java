@@ -71,7 +71,7 @@ public class App {
 
                 // Process the user selection and extract the report
                 userSelectionService.processUserSelection(
-                        userInputs.get("question"), report, con, userInputs.get("userInput")
+                        userInputs.get("question"), report, con, userInputs.get("userInput"), userInputs.get("limit")
                 );
 
                 // Ask if the user wants to continue or exit

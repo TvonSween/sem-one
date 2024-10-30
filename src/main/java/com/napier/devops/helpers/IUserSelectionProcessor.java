@@ -21,5 +21,5 @@ public interface IUserSelectionProcessor {
      *
      * @throws SQLException If an error occurs while executing the SQL query.
      */
-    void processUserSelection(Reports report, Connection con, Integer userInput) throws SQLException;
+    void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) throws SQLException;
 }
