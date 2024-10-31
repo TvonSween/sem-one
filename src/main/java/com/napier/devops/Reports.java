@@ -40,7 +40,12 @@ public class Reports {
         /**
          * Represents the 'Region' column.
          */
-        Region
+        Region,
+        /**
+         * Represents the 'District' column.
+         */
+        District
+
     }
 
     /**

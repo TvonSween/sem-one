@@ -2,6 +2,7 @@ package com.napier.devops.helpers;
 
 import com.napier.devops.Reports;
 import com.napier.devops.reports.CountriesList;
+import com.napier.devops.reports.CitiesList;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -28,6 +29,7 @@ public class UserSelectionService {
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
+        processors.put(19, new CountriesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 
     /**
@@ -71,6 +73,7 @@ public class UserSelectionService {
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
+        System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         // Add the rest of the questions
         System.out.println("\n");
 
@@ -88,6 +91,10 @@ public class UserSelectionService {
             if (questionSelected == 6) {
                 userInput = getRegion();
                 limit = getN();
+            }
+
+            if (questionSelected == 19) {
+                userInput = getRegion();
             }
 
         } catch (InputMismatchException e) {
@@ -122,6 +129,13 @@ public class UserSelectionService {
      * @return The number of rows specified by the user.
      */
 
+    String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
+            "Caribbean", "Central America", "South America", "North America",
+            "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
+            "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
+            "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
+
+
     private static int getN() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
@@ -139,7 +153,12 @@ public class UserSelectionService {
         for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
         return read_range(keyboard, 1, 23);
     }
-
+    private int getRegionalCapitals() {
+        System.out.println("Please specify the number of the region you're interested in:");
+        Scanner keyboard = new Scanner(System.in);
+        for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
+        return read_range(keyboard, 1, 23);
+    }
 
     /**
      * Reads a number from the user within a specified range.
