@@ -29,7 +29,7 @@ public class UserSelectionService {
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
-        processors.put(19, new CountriesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
+        processors.put(19, new CitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 
     /**
@@ -79,7 +79,7 @@ public class UserSelectionService {
 
         try {
             questionSelected = read_range(keyboard, 1, 32);
-            if (questionSelected == 3) {
+            if (questionSelected == 3 || questionSelected == 19) {
                 userInput = getRegion();
                 }
             // Get the response for the extra question - N
@@ -91,10 +91,6 @@ public class UserSelectionService {
             if (questionSelected == 6) {
                 userInput = getRegion();
                 limit = getN();
-            }
-
-            if (questionSelected == 19) {
-                userInput = getRegion();
             }
 
         } catch (InputMismatchException e) {
@@ -129,13 +125,6 @@ public class UserSelectionService {
      * @return The number of rows specified by the user.
      */
 
-    String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
-            "Caribbean", "Central America", "South America", "North America",
-            "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
-            "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
-            "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
-
-
     private static int getN() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
@@ -153,12 +142,7 @@ public class UserSelectionService {
         for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
         return read_range(keyboard, 1, 23);
     }
-    private int getRegionalCapitals() {
-        System.out.println("Please specify the number of the region you're interested in:");
-        Scanner keyboard = new Scanner(System.in);
-        for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
-        return read_range(keyboard, 1, 23);
-    }
+
 
     /**
      * Reads a number from the user within a specified range.

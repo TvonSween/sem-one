@@ -27,7 +27,7 @@ public class CitiesList implements IUserSelectionProcessor {
      * Constructs a {@code CitiesList} instance with the specified filename and SQL query.
      *
      * @param filename       The name of the file to which the results will be written.
-     * @param sqlQueryString The SQL query string used to fetch the country data.
+     * @param sqlQueryString The SQL query string used to fetch the city data.
      */
     public CitiesList(String filename, String sqlQueryString) {
         this.sqlQueryString = sqlQueryString;
@@ -71,8 +71,9 @@ public class CitiesList implements IUserSelectionProcessor {
             report.extract(rset, this.fileName, new String[]{
                         //Reports.Columns.Code.toString(),
                         Reports.Columns.Capital.toString(),
-                        Reports.Columns.Name.toString(),//Country
-                        Reports.Columns.CityPopulation.toString(),
+                        Reports.Columns.Name.toString(),
+                        Reports.Columns.District.toString(),
+                        Reports.Columns.Population.toString(),
                         //Reports.Columns.Capital.toString()
                 });
         } catch (Exception e) {
