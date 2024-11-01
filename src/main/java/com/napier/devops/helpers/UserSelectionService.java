@@ -30,8 +30,8 @@ public class UserSelectionService {
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
-        processors.put(12, new CitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_POPULATION_DESC));
-        processors.put(17, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put(12, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
+        processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 

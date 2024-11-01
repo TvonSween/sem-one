@@ -51,12 +51,13 @@ public class CitiesList implements IUserSelectionProcessor {
     @Override
     public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) {
 
-        if (userInput > 0) {
+       /** if (userInput > 0) {
 
-            if (this.fileName == "TopCitiesInWorldByPopulation") {
-                this.sqlQueryString = String.format(this.sqlQueryString);
-            }
+         if (this.fileName == "CitiesInWorldByPopulation") {
+            this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
+           }
         }
+        */
         try {
             // Prepare statement
             PreparedStatement stmt = con.prepareStatement(this.sqlQueryString);

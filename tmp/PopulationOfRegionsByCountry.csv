@@ -1,6 +1,11 @@
 Code,Name,Continent,Region,Population,Capital
-AUS,Australia,Oceania,Australia and New Zealand,18886000,Canberra
-NZL,New Zealand,Oceania,Australia and New Zealand,3862000,Wellington
-CXR,Christmas Island,Oceania,Australia and New Zealand,2500,Flying Fish Cove
-NFK,Norfolk Island,Oceania,Australia and New Zealand,2000,Kingston
-CCK,Cocos (Keeling) Islands,Oceania,Australia and New Zealand,600,West Island
+PYF,French Polynesia,Oceania,Polynesia,235000,Papeete
+WSM,Samoa,Oceania,Polynesia,180000,Apia
+TON,Tonga,Oceania,Polynesia,99000,Nuku´alofa
+ASM,American Samoa,Oceania,Polynesia,68000,Fagatogo
+COK,Cook Islands,Oceania,Polynesia,20000,Avarua
+WLF,Wallis and Futuna,Oceania,Polynesia,15000,Mata-Utu
+TUV,Tuvalu,Oceania,Polynesia,12000,Funafuti
+NIU,Niue,Oceania,Polynesia,2000,Alofi
+TKL,Tokelau,Oceania,Polynesia,2000,Fakaofo
+PCN,Pitcairn,Oceania,Polynesia,50,Adamstown
