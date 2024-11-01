@@ -30,7 +30,8 @@ public class UserSelectionService {
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
-        processors.put(12, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
+        processors.put(7, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
+        processors.put(12, new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
         processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
@@ -64,7 +65,7 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 20);
+        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 12, 20);
         int questionSelected = 0;
         int userInput = 0;
         int limit = 0;
@@ -77,7 +78,8 @@ public class UserSelectionService {
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
-        System.out.println("12. All cities in the world organised by largest population to smallest");
+        System.out.println("7. All cities in the world organised by largest population to smallest");
+        System.out.println("12. The top N populated cities in the world where N is provided by the user.");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         System.out.println("20. The top N populated capital cities in the world where N is provided by the user.");
