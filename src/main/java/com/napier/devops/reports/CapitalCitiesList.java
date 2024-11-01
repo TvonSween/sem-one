@@ -11,25 +11,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The {@code CitiesList} class implements the {@link IUserSelectionProcessor}
- * interface and is responsible for generating a report of cities based on
+ * The {@code CapitalCitiesList} class implements the {@link IUserSelectionProcessor}
+ * interface and is responsible for generating a report of capital cities based on
  * a specified SQL query. It handles the execution of the query and the
  * extraction of results into a specified file format.
  */
-public class CitiesList implements IUserSelectionProcessor {
+public class CapitalCitiesList implements IUserSelectionProcessor {
 
     private String fileName;        // Name of the output file
     private String sqlQueryString;  // SQL query string to execute
     private ResultSet rset;         // ResultSet object to hold query results
-    private static final Logger logger = Logger.getLogger(CitiesList.class.getName());
+    private static final Logger logger = Logger.getLogger(CapitalCitiesList.class.getName());
 
     /**
-     * Constructs a {@code CitiesList} instance with the specified filename and SQL query.
+     * Constructs a {@code CapitalCitiesList} instance with the specified filename and SQL query.
      *
      * @param filename       The name of the file to which the results will be written.
      * @param sqlQueryString The SQL query string used to fetch the city data.
      */
-    public CitiesList(String filename, String sqlQueryString) {
+    public CapitalCitiesList(String filename, String sqlQueryString) {
         this.sqlQueryString = sqlQueryString;
         this.fileName = filename;
     }
@@ -70,8 +70,8 @@ public class CitiesList implements IUserSelectionProcessor {
         try {
             report.extract(rset, this.fileName, new String[]{
                         Reports.Columns.Capital.toString(),
+                        //Country name
                         Reports.Columns.Name.toString(),
-                        Reports.Columns.District.toString(),
                         Reports.Columns.Population.toString()
                 });
         } catch (Exception e) {
