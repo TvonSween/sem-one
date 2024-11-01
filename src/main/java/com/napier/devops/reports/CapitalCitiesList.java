@@ -53,6 +53,10 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
 
         if (userInput > 0) {
 
+            if (this.fileName == "TopCapitalCitiesPerPopulation"){
+                this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
+            }
+
             if (this.fileName == "CapitalCitiesInRegionByPopulation") {
                 System.out.println("Re: " + regions[userInput - 1]);
                 this.sqlQueryString = String.format(this.sqlQueryString, regions[userInput - 1]);

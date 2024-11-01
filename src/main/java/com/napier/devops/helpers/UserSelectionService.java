@@ -33,6 +33,7 @@ public class UserSelectionService {
         processors.put(12, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
+        processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
     }
 
     /**
@@ -63,7 +64,7 @@ public class UserSelectionService {
      */
     public Map<String, Integer> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5);
+        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 20);
         int questionSelected = 0;
         int userInput = 0;
         int limit = 0;
@@ -79,6 +80,8 @@ public class UserSelectionService {
         System.out.println("12. All cities in the world organised by largest population to smallest");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
+        System.out.println("20. The top N populated capital cities in the world where N is provided by the user.");
+
         // Add the rest of the questions
         System.out.println("\n");
 
@@ -87,8 +90,8 @@ public class UserSelectionService {
             if (questionSelected == 3 || questionSelected == 19) {
                 userInput = getRegion();
                 }
-            // Get the response for the extra question - N
 
+            // Get the response for the extra question - N
             if (questionsExtraUserInput.contains(questionSelected)) {
                     userInput = getN();
             }
