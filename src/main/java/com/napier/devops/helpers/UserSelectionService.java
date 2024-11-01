@@ -30,6 +30,7 @@ public class UserSelectionService {
         processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
+        processors.put(12, new CitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
@@ -75,6 +76,7 @@ public class UserSelectionService {
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
+        System.out.println("12. All cities in the world organised by largest population to smallest");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         // Add the rest of the questions

@@ -53,9 +53,8 @@ public class CitiesList implements IUserSelectionProcessor {
 
         if (userInput > 0) {
 
-            if (this.fileName == "CapitalCitiesInRegionByPopulation") {
-                System.out.println("Re: " + regions[userInput - 1]);
-                this.sqlQueryString = String.format(this.sqlQueryString, regions[userInput - 1]);
+            if (this.fileName == "TopCitiesInWorldByPopulation") {
+                this.sqlQueryString = String.format(this.sqlQueryString);
             }
         }
         try {
@@ -69,7 +68,7 @@ public class CitiesList implements IUserSelectionProcessor {
 
         try {
             report.extract(rset, this.fileName, new String[]{
-                        Reports.Columns.Capital.toString(),
+                        Reports.Columns.City.toString(),
                         Reports.Columns.Name.toString(),
                         Reports.Columns.District.toString(),
                         Reports.Columns.Population.toString()

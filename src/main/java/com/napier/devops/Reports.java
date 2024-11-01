@@ -44,7 +44,11 @@ public class Reports {
         /**
          * Represents the 'District' column.
          */
-        District
+        District,
+        /**
+         * Represents the 'City' column.
+         */
+        City
 
     }
 
