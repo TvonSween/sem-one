@@ -35,6 +35,7 @@ public class UserSelectionService {
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
         processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
     }
 
     /**
@@ -83,6 +84,8 @@ public class UserSelectionService {
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         System.out.println("20. The top N populated capital cities in the world where N is provided by the user.");
+        System.out.println("22. The top N populated capital cities in a region where N is provided by the user.");
+
 
         // Add the rest of the questions
         System.out.println("\n");
@@ -98,7 +101,7 @@ public class UserSelectionService {
                     userInput = getN();
             }
 
-            if (questionSelected == 6) {
+            if (questionSelected == 6 || questionSelected == 22) {
                 userInput = getRegion();
                 limit = getN();
             }
