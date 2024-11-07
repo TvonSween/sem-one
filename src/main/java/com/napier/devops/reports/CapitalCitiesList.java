@@ -75,6 +75,12 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
                 this.sqlQueryString = this.sqlQueryString + " LIMIT " + limit + ";";
             }
 
+            if (this.fileName == "CapitalCitiesInContinentWithLimit") {
+                System.out.println("Re: " + continents[userInput - 1]);
+                this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
+                this.sqlQueryString = this.sqlQueryString + " LIMIT " + limit + ";";
+            }
+
         }
         try {
             // Prepare statement

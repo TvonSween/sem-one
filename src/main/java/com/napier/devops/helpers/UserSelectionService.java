@@ -36,6 +36,7 @@ public class UserSelectionService {
         processors.put(18, new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
         processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put(21, new CapitalCitiesList( "CapitalCitiesInContinentWithLimit", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
         processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 
@@ -86,6 +87,7 @@ public class UserSelectionService {
         System.out.println("18. All capital cities in a continent organised by largest population to smallest.");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         System.out.println("20. The top N populated capital cities in the world where N is provided by the user.");
+        System.out.println("21. The top N populated capital cities in a continent where N is provided by the user.");
         System.out.println("22. The top N populated capital cities in a region where N is provided by the user.");
 
 
@@ -112,6 +114,12 @@ public class UserSelectionService {
             if(questionSelected == 18) {
                 userInput = getContinent();
             }
+
+            if (questionSelected == 21) {
+                userInput = getContinent();
+                limit = getN();
+            }
+
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
