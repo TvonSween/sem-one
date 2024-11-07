@@ -33,6 +33,7 @@ public class UserSelectionService {
         processors.put(7, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
         processors.put(12, new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put(18, new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
         processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
@@ -82,6 +83,7 @@ public class UserSelectionService {
         System.out.println("7. All cities in the world organised by largest population to smallest");
         System.out.println("12. The top N populated cities in the world where N is provided by the user.");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
+        System.out.println("18. All capital cities in a continent organised by largest population to smallest.");
         System.out.println("19. All capital cities in a region organised by largest population to smallest.");
         System.out.println("20. The top N populated capital cities in the world where N is provided by the user.");
         System.out.println("22. The top N populated capital cities in a region where N is provided by the user.");
@@ -92,6 +94,7 @@ public class UserSelectionService {
 
         try {
             questionSelected = read_range(keyboard, 1, 32);
+
             if (questionSelected == 3 || questionSelected == 19) {
                 userInput = getRegion();
                 }
@@ -104,6 +107,10 @@ public class UserSelectionService {
             if (questionSelected == 6 || questionSelected == 22) {
                 userInput = getRegion();
                 limit = getN();
+            }
+
+            if(questionSelected == 18) {
+                userInput = getContinent();
             }
 
         } catch (InputMismatchException e) {
@@ -144,6 +151,14 @@ public class UserSelectionService {
         return read_range(keyboard, 1, 100);
     }
 
+    private int getContinent() {
+        String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
+        System.out.println("Please specify the number of the region you're interested in:");
+        Scanner keyboard = new Scanner(System.in);
+        for (int i = 0; i < continents.length; i++) System.out.println((i + 1) + ": " + continents[i]);
+        return read_range(keyboard, 1, 23);
+    }
+
     private int getRegion() {
         String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
                 "Caribbean", "Central America", "South America", "North America",
@@ -155,7 +170,6 @@ public class UserSelectionService {
         for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
         return read_range(keyboard, 1, 23);
     }
-
 
     /**
      * Reads a number from the user within a specified range.

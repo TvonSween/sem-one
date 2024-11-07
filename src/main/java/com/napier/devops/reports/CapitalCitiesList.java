@@ -34,6 +34,8 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
         this.fileName = filename;
     }
 
+    public String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
+
     public String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
             "Caribbean", "Central America", "South America", "North America",
             "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
@@ -55,6 +57,11 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
 
             if (this.fileName == "TopCapitalCitiesPerPopulation"){
                 this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
+            }
+
+            if (this.fileName == "CapitalCitiesInContinentByPopulation") {
+                System.out.println("Re: " + continents[userInput - 1]);
+                this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
             }
 
             if (this.fileName == "CapitalCitiesInRegionByPopulation") {
