@@ -68,7 +68,6 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
                 this.sqlQueryString = this.sqlQueryString + " LIMIT " + limit + ";";
             }
 
-
         }
         try {
             // Prepare statement

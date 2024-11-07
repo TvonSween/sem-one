@@ -35,7 +35,7 @@ public class UserSelectionService {
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
         processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
-        processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 
     /**
