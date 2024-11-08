@@ -31,6 +31,7 @@ public class UserSelectionService {
         processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
         processors.put(7, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
+        processors.put(8, new CitiesList( "CitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
         processors.put(12, new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(18, new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
@@ -82,6 +83,7 @@ public class UserSelectionService {
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
         System.out.println("7. All cities in the world organised by largest population to smallest");
+        System.out.println("8. All the cities in a continent organised by largest population to smallest");
         System.out.println("12. The top N populated cities in the world where N is provided by the user.");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("18. All capital cities in a continent organised by largest population to smallest.");
@@ -111,7 +113,7 @@ public class UserSelectionService {
                 limit = getN();
             }
 
-            if(questionSelected == 18) {
+            if(questionSelected == 8 || questionSelected == 18) {
                 userInput = getContinent();
             }
 
