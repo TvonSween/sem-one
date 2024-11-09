@@ -22,7 +22,7 @@ public class Reports {
          */
         Code,
         /**
-         * Represents the 'Name' column.
+         * Represents the 'Country' column.
          */
         Name,
         /**

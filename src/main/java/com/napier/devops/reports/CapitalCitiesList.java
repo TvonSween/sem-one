@@ -46,12 +46,13 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
      * into a CSV file. If the user specifies a limit, the query will be modified to include
      * the limit on the number of results returned.
      *
-     * @param report    The instance of the {@link Reports} class used to generate the report.
-     * @param con       The SQL connection to execute queries against the database.
-     * @param userInput The additional user input required for limiting the number of results.
+     * @param report     The instance of the {@link Reports} class used to generate the report.
+     * @param con        The SQL connection to execute queries against the database.
+     * @param userInput  The additional user input required for limiting the number of results.
+     * @param searchTerm
      */
     @Override
-    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) {
+    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit, String searchTerm) {
 
         if (userInput > 0) {
 

@@ -2,6 +2,7 @@ package com.napier.devops;
 
 import com.napier.devops.helpers.UserSelectionService;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.util.Map;
 import java.util.logging.Level;
@@ -67,11 +68,11 @@ public class App {
             // Continuously prompt the user until they choose to exit (N/n)
             while (shouldQuestion) {
                 // Get user inputs
-                Map<String, Integer> userInputs = userSelectionService.getUserInput();
+                Map<String, Serializable> userInputs = userSelectionService.getUserInput();
 
                 // Process the user selection and extract the report
                 userSelectionService.processUserSelection(
-                        userInputs.get("question"), report, con, userInputs.get("userInput"), userInputs.get("limit")
+                        (Integer) userInputs.get("question"), report, con, (Integer) userInputs.get("userInput"), (Integer) userInputs.get("limit"), String.valueOf(userInputs.get("searchTerm"))
                 );
 
                 // Ask if the user wants to continue or exit

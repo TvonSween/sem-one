@@ -7,8 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.napier.devops.Reports.Columns.Name;
 
 /**
  * The {@code CitiesList} class implements the {@link IUserSelectionProcessor}
@@ -41,6 +46,8 @@ public class CitiesList implements IUserSelectionProcessor {
             "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
             "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
             "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
+
+
     /**
      * Processes the user selection by executing the SQL query and extracting the results
      * into a CSV file. If the user specifies a limit, the query will be modified to include
@@ -51,20 +58,34 @@ public class CitiesList implements IUserSelectionProcessor {
      * @param userInput The additional user input required for limiting the number of results.
      */
     @Override
-    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) {
+    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit, String searchTerm) throws SQLException {
 
-        if (userInput > 0) {
+        if (userInput > 0 ) {
 
-         if (this.fileName == "TopCitiesPerPopulation") {
-            this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
-           }
-
-         if (this.fileName == "CitiesByContinent") {
-             System.out.println("Re: " + continents[userInput - 1]);
-             this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
+            if (this.fileName == "TopCitiesPerPopulation") {
+                this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
             }
 
+            if (this.fileName == "CitiesByContinent") {
+                System.out.println("Re: " + continents[userInput - 1]);
+                this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
+            }
         }
+
+        if (searchTerm != null ) {
+
+            if (this.fileName == "CitiesByCountry") {
+                System.out.println("Re: " + searchTerm);
+                //this.sqlQueryString = this.sqlQueryString + " WHERE " + Name + " LIKE " + searchTerm + '%' + ';';
+                this.sqlQueryString = String.format(this.sqlQueryString, searchTerm);
+
+
+             /**   for (String country : countries) {
+                    if (Objects.equals(searchTerm, country))
+                        this.sqlQueryString = String.format(this.sqlQueryString, country);
+                 }
+              */
+            }
 
         try {
             // Prepare statement
@@ -76,14 +97,42 @@ public class CitiesList implements IUserSelectionProcessor {
         }
 
         try {
-            report.extract(rset, this.fileName, new String[]{
+           /** List<String> countries = null;
+            if (this.fileName == "CitiesByCountry") {
+                countries = new ArrayList<>();
+                while (rset.next()) {
+                    countries.add(rset.getString("country.Name"));
+                }
+
+                ListIterator<String> iterator = countries.listIterator();
+                while (iterator.hasNext()) {
+                    for (String country : countries) {
+                        if (Objects.equals(searchTerm, country)) {
+                            try {
+                                report.extract(rset, this.fileName, new String[]{
+                                        Reports.Columns.City.toString(),
+                                        Reports.Columns.Name.toString(),
+                                        Reports.Columns.District.toString(),
+                                        Reports.Columns.Population.toString()
+
+                                });
+                            } catch (Exception e) {
+                                logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
+                            }
+                        }
+                    }
+                }
+                }else { */
+                report.extract(rset, this.fileName, new String[]{
                         Reports.Columns.City.toString(),
-                        Reports.Columns.Name.toString(),
+                        Name.toString(),
                         Reports.Columns.District.toString(),
                         Reports.Columns.Population.toString()
                 });
+           // }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
         }
     }
+}
 }

@@ -5,8 +5,10 @@ import com.napier.devops.reports.CapitalCitiesList;
 import com.napier.devops.reports.CountriesList;
 import com.napier.devops.reports.CitiesList;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.lang.String;
 import java.util.*;
 
 /**
@@ -32,6 +34,7 @@ public class UserSelectionService {
         processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
         processors.put(7, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
         processors.put(8, new CitiesList( "CitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
+        processors.put(10, new CitiesList( "CitiesByCountry", QueryConstants.CITY_POPULATION_COUNTRY_DESC));
         processors.put(12, new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
         processors.put(18, new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
@@ -48,14 +51,15 @@ public class UserSelectionService {
      * @param report     The instance of the {@link Reports} class used to generate the report.
      * @param con       The SQL connection to execute queries against the database.
      * @param userInput  The additional user input required for specific questions.
+     * @param searchTerm The additional user input required for specific text search questions.
      *
      * @throws SQLException If an error occurs while executing the SQL query.
      * @throws IllegalArgumentException If the provided question ID is not supported.
      */
-    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput, Integer limit) throws SQLException {
+    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput, Integer limit, String searchTerm) throws SQLException {
         IUserSelectionProcessor processor = processors.get(questionId);
         if (processor != null) {
-            processor.processUserSelection(report, con, userInput, limit);
+            processor.processUserSelection(report, con, userInput, limit, searchTerm);
         } else {
             throw new IllegalArgumentException("Unsupported questionId: " + questionId);
         }
@@ -67,12 +71,13 @@ public class UserSelectionService {
      *
      * @return A {@link Map} containing the selected question ID and any extra user input.
      */
-    public Map<String, Integer> getUserInput() {
+    public Map<String, Serializable> getUserInput() {
         // Set of question IDs that require extra user input
         final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 12, 20);
         int questionSelected = 0;
         int userInput = 0;
         int limit = 0;
+        String searchTerm = "";
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -84,6 +89,7 @@ public class UserSelectionService {
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
         System.out.println("7. All cities in the world organised by largest population to smallest");
         System.out.println("8. All the cities in a continent organised by largest population to smallest");
+        System.out.println("10. All the cities in a country organised by largest population to smallest");
         System.out.println("12. The top N populated cities in the world where N is provided by the user.");
         System.out.println("17. All capital cities in the world organised by largest population to smallest");
         System.out.println("18. All capital cities in a continent organised by largest population to smallest.");
@@ -122,6 +128,10 @@ public class UserSelectionService {
                 limit = getN();
             }
 
+            if (questionSelected == 10) {
+                searchTerm = getSearchTerm();
+            }
+
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
@@ -130,7 +140,8 @@ public class UserSelectionService {
         return Map.of(
                 "question", questionSelected,
                 "userInput", userInput,
-                "limit", limit
+                "limit", limit,
+                "searchTerm", searchTerm
         );
     }
 
@@ -166,7 +177,7 @@ public class UserSelectionService {
         System.out.println("Please specify the number of the region you're interested in:");
         Scanner keyboard = new Scanner(System.in);
         for (int i = 0; i < continents.length; i++) System.out.println((i + 1) + ": " + continents[i]);
-        return read_range(keyboard, 1, 23);
+        return read_range(keyboard, 1, 7);
     }
 
     private int getRegion() {
@@ -179,6 +190,13 @@ public class UserSelectionService {
         Scanner keyboard = new Scanner(System.in);
         for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
         return read_range(keyboard, 1, 23);
+    }
+
+    public String getSearchTerm() {
+        System.out.println("Please type the search term: ");
+        Scanner keyboard = new Scanner(System.in);
+        String output = keyboard.nextLine();
+        return output;
     }
 
     /**
