@@ -67,7 +67,7 @@ public class App {
             // Continuously prompt the user until they choose to exit (N/n)
             while (shouldQuestion) {
                 // Get user inputs
-                Map<String, Integer> userInputs = userSelectionService.getUserInput();
+                Map<String, String> userInputs = userSelectionService.getUserInput();
 
                 // Process the user selection and extract the report
                 userSelectionService.processUserSelection(

@@ -19,26 +19,26 @@ public class UserSelectionService {
     /**
      * A map that associates question IDs with their respective report processors.
      */
-    private final Map<Integer, IUserSelectionProcessor> processors = new HashMap<>();
+    private final Map<String, IUserSelectionProcessor> processors = new HashMap<>();
 
     /**
      * Constructs a {@code UserSelectionService} instance and initializes the
      * mapping of question IDs to report processors.
      */
     public UserSelectionService() {
-        processors.put(1, new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
-        processors.put(3, new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
-        processors.put(4, new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
-        processors.put(6, new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
-        processors.put(7, new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
-        processors.put(8, new CitiesList( "CitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
-        processors.put(12, new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
-        processors.put(17, new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
-        processors.put(18, new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
-        processors.put(19, new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
-        processors.put(20, new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
-        processors.put(21, new CapitalCitiesList( "CapitalCitiesInContinentWithLimit", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
-        processors.put(22, new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
+        processors.put("1", new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put("3", new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
+        processors.put("4", new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put("6", new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
+        processors.put("7", new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
+        processors.put("8", new CitiesList( "CitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
+        processors.put("12", new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
+        processors.put("17", new CapitalCitiesList( "PopulationOfCapitalCities", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put("18", new CapitalCitiesList( "CapitalCitiesInContinentByPopulation", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
+        processors.put("19", new CapitalCitiesList( "CapitalCitiesInRegionByPopulation", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
+        processors.put("20", new CapitalCitiesList( "TopCapitalCitiesPerPopulation", QueryConstants.CITY_CAPITALS_POPULATION_DESC));
+        processors.put("21", new CapitalCitiesList( "CapitalCitiesInContinentWithLimit", QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));
+        processors.put("22", new CapitalCitiesList( "CapitalCitiesInRegionWithLimit", QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));
     }
 
     /**
@@ -46,13 +46,14 @@ public class UserSelectionService {
      *
      * @param questionId The ID of the question corresponding to the user's selection.
      * @param report     The instance of the {@link Reports} class used to generate the report.
-     * @param con       The SQL connection to execute queries against the database.
+     * @param con        The SQL connection to execute queries against the database.
      * @param userInput  The additional user input required for specific questions.
+     * @param limit      The limit on the number of rows for queries that require it.
      *
      * @throws SQLException If an error occurs while executing the SQL query.
      * @throws IllegalArgumentException If the provided question ID is not supported.
      */
-    public void processUserSelection(Integer questionId, Reports report, Connection con, Integer userInput, Integer limit) throws SQLException {
+    public void processUserSelection(String questionId, Reports report, Connection con, String userInput, String limit) throws SQLException {
         IUserSelectionProcessor processor = processors.get(questionId);
         if (processor != null) {
             processor.processUserSelection(report, con, userInput, limit);
@@ -67,12 +68,30 @@ public class UserSelectionService {
      *
      * @return A {@link Map} containing the selected question ID and any extra user input.
      */
-    public Map<String, Integer> getUserInput() {
+    public Map<String, String> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<Integer> questionsExtraUserInput = Set.of(4, 5, 12, 20);
-        int questionSelected = 0;
-        int userInput = 0;
-        int limit = 0;
+        final Set<String> questionsWithoutAnyUserInput = Set.of("1", "7", "17", "20","26");
+        final Set<String> questionsWithLimit = Set.of("4","5","6","12","13","14","15","16","21","22","23");
+        final Set<String> questionContinent = Set.of("2","5","8","13", "18", "21","27");
+        final Map<String, String> categories = new HashMap<String, String>() {
+            {
+                put("3", "region");
+                put("6", "region");
+                put("9", "region");
+                put("11", "district");
+                put("14", "region");
+                put("15", "country");
+                put("16", "district");
+                put("19", "region");
+                put("22", "region");
+                put("28", "region");
+                put("29", "country");
+                put("30", "district");
+                put("31", "city");
+            }};
+        String questionSelected = "";
+        String userInput = "";
+        String limit = "";
 
         Scanner keyboard = new Scanner(System.in);
 
@@ -92,36 +111,21 @@ public class UserSelectionService {
         System.out.println("21. The top N populated capital cities in a continent where N is provided by the user.");
         System.out.println("22. The top N populated capital cities in a region where N is provided by the user.");
 
-
-        // Add the rest of the questions
         System.out.println("\n");
 
         try {
             questionSelected = read_range(keyboard, 1, 32);
-
-            if (questionSelected == 3 || questionSelected == 19) {
-                userInput = getRegion();
+            if (!questionsWithoutAnyUserInput.contains(questionSelected)) {
+                if(questionContinent.contains(questionSelected)) {
+                    userInput = getContinent();
+                } else {
+                    userInput = getInput(categories.get(questionSelected));
                 }
-
+            }
             // Get the response for the extra question - N
-            if (questionsExtraUserInput.contains(questionSelected)) {
-                    userInput = getN();
-            }
-
-            if (questionSelected == 6 || questionSelected == 22) {
-                userInput = getRegion();
+            if (questionsWithLimit.contains(questionSelected)) {
                 limit = getN();
             }
-
-            if(questionSelected == 8 || questionSelected == 18) {
-                userInput = getContinent();
-            }
-
-            if (questionSelected == 21) {
-                userInput = getContinent();
-                limit = getN();
-            }
-
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please try again.\n");
@@ -154,31 +158,23 @@ public class UserSelectionService {
      *
      * @return The number of rows specified by the user.
      */
-
-    private static int getN() {
+    private static String getN() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
         return read_range(keyboard, 1, 100);
     }
 
-    private int getContinent() {
+    /**
+     * Prompts the user to select a continent from a predefined list.
+     *
+     * @return The name of the selected continent.
+     */
+    private String getContinent() {
         String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
-        System.out.println("Please specify the number of the region you're interested in:");
+        System.out.println("Please specify the number of the continent you're interested in:");
         Scanner keyboard = new Scanner(System.in);
         for (int i = 0; i < continents.length; i++) System.out.println((i + 1) + ": " + continents[i]);
-        return read_range(keyboard, 1, 23);
-    }
-
-    private int getRegion() {
-        String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
-                "Caribbean", "Central America", "South America", "North America",
-                "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
-                "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
-                "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
-        System.out.println("Please specify the number of the region you're interested in:");
-        Scanner keyboard = new Scanner(System.in);
-        for (int i = 0; i < regions.length; i++) System.out.println((i + 1) + ": " + regions[i]);
-        return read_range(keyboard, 1, 23);
+        return continents[Integer.parseInt(read_range(keyboard, 1, 7))];
     }
 
     /**
@@ -189,12 +185,30 @@ public class UserSelectionService {
      * @param high    The upper bound of the acceptable range.
      * @return The validated user input within the specified range.
      */
-    private static int read_range(Scanner scanner, int low, int high) {
+    private static String read_range(Scanner scanner, int low, int high) {
         int value = low - 1;
         while (value < low || value > high) {
             System.out.print("Please enter a value between " + low + " and " + high + ": ");
-            value = scanner.nextInt();
+            try {
+                value = Integer.parseInt(scanner.next());
+            }
+            catch (NumberFormatException e) {
+                value = 0;
+            }
         }
-        return value;
+        return String.valueOf(value);
+    }
+
+    /**
+     * Prompts the user to provide input for a specific category.
+     *
+     * @param category The name of the category for which input is required.
+     * @return The user-provided input.
+     */
+    private static String getInput (String category) {
+        String result = "";
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Please specify the " + category + " you want: ");
+        return scanner.next();
     }
 }

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,13 +35,6 @@ public class CitiesList implements IUserSelectionProcessor {
         this.fileName = filename;
     }
 
-    public String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
-
-    public String[] regions = {"Northern Africa", "Eastern Africa","Central Africa", "Southern Africa", "Western Africa",
-            "Caribbean", "Central America", "South America", "North America",
-            "Eastern Asia", "Southern and Central Asia", "Southeast Asia", "Middle East",
-            "Baltic Countries", "Eastern Europe", "Nordic Countries", "Southern Europe", "Western Europe", "British Islands",
-            "Australia and New Zealand", "Melanesia", "Micronesia", "Polynesia"};
     /**
      * Processes the user selection by executing the SQL query and extracting the results
      * into a CSV file. If the user specifies a limit, the query will be modified to include
@@ -48,22 +42,17 @@ public class CitiesList implements IUserSelectionProcessor {
      *
      * @param report    The instance of the {@link Reports} class used to generate the report.
      * @param con       The SQL connection to execute queries against the database.
-     * @param userInput The additional user input required for limiting the number of results.
+     * @param userInput The additional user input required for specific questions.
+     * @param limit The additional user input required for limiting the number of results.
      */
     @Override
-    public void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit) {
+    public void processUserSelection(Reports report, Connection con, String userInput, String limit) {
 
-        if (userInput > 0) {
-
-         if (this.fileName == "TopCitiesPerPopulation") {
-            this.sqlQueryString = this.sqlQueryString + " LIMIT " + userInput + ';';
-           }
-
-         if (this.fileName == "CitiesByContinent") {
-             System.out.println("Re: " + continents[userInput - 1]);
-             this.sqlQueryString = String.format(this.sqlQueryString, continents[userInput - 1]);
-            }
-
+        if (!Objects.equals(userInput, "")) {
+            this.sqlQueryString = String.format(this.sqlQueryString,"%" + userInput + "%");
+        }
+        if (!Objects.equals(limit, "")) {
+            this.sqlQueryString = this.sqlQueryString + " LIMIT " + Integer.parseInt(limit) + ";";
         }
 
         try {
