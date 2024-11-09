@@ -61,11 +61,10 @@ public class App {
             // Create an instance of the Reports class for generating reports
             Reports report = new Reports();
 
-            // Create an instance of the UserSelectionService to interact with the user
-            UserSelectionService userSelectionService = new UserSelectionService();
-
             // Continuously prompt the user until they choose to exit (N/n)
             while (shouldQuestion) {
+                // Create an instance of the UserSelectionService to interact with the user
+                UserSelectionService userSelectionService = new UserSelectionService();
                 // Get user inputs
                 Map<String, String> userInputs = userSelectionService.getUserInput();
 
