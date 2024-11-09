@@ -78,13 +78,6 @@ public class CitiesList implements IUserSelectionProcessor {
                 System.out.println("Re: " + searchTerm);
                 //this.sqlQueryString = this.sqlQueryString + " WHERE " + Name + " LIKE " + searchTerm + '%' + ';';
                 this.sqlQueryString = String.format(this.sqlQueryString, searchTerm);
-
-
-             /**   for (String country : countries) {
-                    if (Objects.equals(searchTerm, country))
-                        this.sqlQueryString = String.format(this.sqlQueryString, country);
-                 }
-              */
             }
 
         try {
@@ -97,39 +90,12 @@ public class CitiesList implements IUserSelectionProcessor {
         }
 
         try {
-           /** List<String> countries = null;
-            if (this.fileName == "CitiesByCountry") {
-                countries = new ArrayList<>();
-                while (rset.next()) {
-                    countries.add(rset.getString("country.Name"));
-                }
-
-                ListIterator<String> iterator = countries.listIterator();
-                while (iterator.hasNext()) {
-                    for (String country : countries) {
-                        if (Objects.equals(searchTerm, country)) {
-                            try {
-                                report.extract(rset, this.fileName, new String[]{
-                                        Reports.Columns.City.toString(),
-                                        Reports.Columns.Name.toString(),
-                                        Reports.Columns.District.toString(),
-                                        Reports.Columns.Population.toString()
-
-                                });
-                            } catch (Exception e) {
-                                logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
-                            }
-                        }
-                    }
-                }
-                }else { */
                 report.extract(rset, this.fileName, new String[]{
                         Reports.Columns.City.toString(),
                         Name.toString(),
                         Reports.Columns.District.toString(),
                         Reports.Columns.Population.toString()
                 });
-           // }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
         }
