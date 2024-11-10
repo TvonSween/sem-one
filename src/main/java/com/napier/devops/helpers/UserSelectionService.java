@@ -87,7 +87,7 @@ public class UserSelectionService {
      */
     public Map<String, String> getUserInput() {
         // Set of question IDs that require extra user input
-        final Set<String> questionsWithoutAnyUserInput = Set.of("1","4", "7", "17", "20","23","24","25","26", "32");
+        final Set<String> questionsWithoutAnyUserInput = Set.of("1","4", "7", "12", "17", "20","23","24","25","26", "32");
         final Set<String> questionsWithLimit = Set.of("4","5","6","12","13","14","15","16","20", "21","22");
         final Set<String> questionsForContinentCategory = Set.of("2","5","8","13", "18", "21","27");
         final Map<String, String> categories = new HashMap<>() {
