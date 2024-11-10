@@ -48,8 +48,11 @@ public class Reports {
         /**
          * Represents the 'City' column.
          */
-        City
-
+        City,
+        PopulationInCities,
+        PopulationInNonCityAreas,
+        PercentageOfWorld,
+        Language
     }
 
     /**

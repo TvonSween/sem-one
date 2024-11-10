@@ -15,11 +15,12 @@ public interface IUserSelectionProcessor {
     /**
      * Processes the user's selection for generating a report.
      *
-     * @param report     The instance of the {@link Reports} class used to generate the report.
-     * @param con        The SQL connection to execute queries against the database.
-     * @param userInput  The additional user input required for specific report types.
-     * @param searchTerm
+     * @param report    The instance of the {@link Reports} class used to generate the report.
+     * @param con       The SQL connection to execute queries against the database.
+     * @param userInput The additional user input required for specific report types.
+     * @param limit     The additional user input for the limit of rows.
+     *
      * @throws SQLException If an error occurs while executing the SQL query.
      */
-    void processUserSelection(Reports report, Connection con, Integer userInput, Integer limit, String searchTerm) throws SQLException;
+    void processUserSelection(Reports report, Connection con, String userInput, String limit) throws SQLException;
 }

@@ -2,7 +2,6 @@ package com.napier.devops;
 
 import com.napier.devops.helpers.UserSelectionService;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.util.Map;
 import java.util.logging.Level;
@@ -62,17 +61,16 @@ public class App {
             // Create an instance of the Reports class for generating reports
             Reports report = new Reports();
 
-            // Create an instance of the UserSelectionService to interact with the user
-            UserSelectionService userSelectionService = new UserSelectionService();
-
             // Continuously prompt the user until they choose to exit (N/n)
             while (shouldQuestion) {
+                // Create an instance of the UserSelectionService to interact with the user
+                UserSelectionService userSelectionService = new UserSelectionService();
                 // Get user inputs
-                Map<String, Serializable> userInputs = userSelectionService.getUserInput();
+                Map<String, String> userInputs = userSelectionService.getUserInput();
 
                 // Process the user selection and extract the report
                 userSelectionService.processUserSelection(
-                        (Integer) userInputs.get("question"), report, con, (Integer) userInputs.get("userInput"), (Integer) userInputs.get("limit"), String.valueOf(userInputs.get("searchTerm"))
+                        userInputs.get("question"), report, con, userInputs.get("userInput"), userInputs.get("limit")
                 );
 
                 // Ask if the user wants to continue or exit

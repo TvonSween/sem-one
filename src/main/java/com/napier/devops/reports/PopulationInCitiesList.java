@@ -7,30 +7,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The {@code CitiesList} class implements the {@link IUserSelectionProcessor}
- * interface and is responsible for generating a report of cities based on
+ * The {@code CountriesList} class implements the {@link IUserSelectionProcessor}
+ * interface and is responsible for generating a report of countries based on
  * a specified SQL query. It handles the execution of the query and the
  * extraction of results into a specified file format.
  */
-public class CitiesList implements IUserSelectionProcessor {
+public class PopulationInCitiesList implements IUserSelectionProcessor {
 
     private String fileName;        // Name of the output file
     private String sqlQueryString;  // SQL query string to execute
     private ResultSet rset;         // ResultSet object to hold query results
-    private static final Logger logger = Logger.getLogger(CitiesList.class.getName());
+    private static final Logger logger = Logger.getLogger(PopulationInCitiesList.class.getName());
 
     /**
-     * Constructs a {@code CitiesList} instance with the specified filename and SQL query.
+     * Constructs a {@code CountriesList} instance with the specified filename and SQL query.
      *
      * @param filename       The name of the file to which the results will be written.
-     * @param sqlQueryString The SQL query string used to fetch the city data.
+     * @param sqlQueryString The SQL query string used to fetch the country data.
      */
-    public CitiesList(String filename, String sqlQueryString) {
+    public PopulationInCitiesList(String filename, String sqlQueryString) {
         this.sqlQueryString = sqlQueryString;
         this.fileName = filename;
     }
@@ -48,13 +47,6 @@ public class CitiesList implements IUserSelectionProcessor {
     @Override
     public void processUserSelection(Reports report, Connection con, String userInput, String limit) {
 
-        if (!Objects.equals(userInput, "")) {
-            this.sqlQueryString = String.format(this.sqlQueryString,"%" + userInput + "%");
-        }
-        if (!Objects.equals(limit, "")) {
-            this.sqlQueryString = this.sqlQueryString + " LIMIT " + Integer.parseInt(limit) + ";";
-        }
-
         try {
             // Prepare statement
             PreparedStatement stmt = con.prepareStatement(this.sqlQueryString);
@@ -66,10 +58,10 @@ public class CitiesList implements IUserSelectionProcessor {
 
         try {
             report.extract(rset, this.fileName, new String[]{
-                        Reports.Columns.City.toString(),
-                        Reports.Columns.Name.toString(),
-                        Reports.Columns.District.toString(),
-                        Reports.Columns.Population.toString()
+                    Reports.Columns.Name.toString(),
+                    Reports.Columns.Population.toString(),
+                    Reports.Columns.PopulationInCities.toString(),
+                    Reports.Columns.PopulationInNonCityAreas.toString()
                 });
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error while processing the report: " + e.getMessage());
