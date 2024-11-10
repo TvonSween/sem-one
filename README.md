@@ -17,7 +17,9 @@
 ## [Code of Conduct](CODE_OF_CONDUCT.md)
 
 
-## Requirements Table
+## Requirements Table 
+### 32 requirements of 32 have been implemented, which is 100% 
+
 | ID | Name                                                                                                  | Met | Screenshot | Link                                                                                                   |
 |----|-------------------------------------------------------------------------------------------------------|-----|-|--------------------------------------------------------------------------------------------------------|
 | 1  | All the countries in the world organised by largest population to smallest.                           | Yes | ![PopulationOfCountries](img/PopulationOfCountries.png) | [PopulationOfCountries](tmp/PopulationOfCountries.csv)                                                 |
