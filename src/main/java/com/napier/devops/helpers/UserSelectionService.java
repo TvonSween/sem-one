@@ -25,12 +25,15 @@ public class UserSelectionService {
      */
     public UserSelectionService() {
         processors.put("1", new CountriesList("PopulationOfCountries", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put("2", new CountriesList("PopulationOfContinentsByCountry", QueryConstants.CONTINENT_POPULATION_DESC));
         processors.put("3", new CountriesList("PopulationOfRegionsByCountry", QueryConstants.REGION_POPULATION_DESC));
         processors.put("4", new CountriesList("TopCountriesPerPopulation", QueryConstants.COUNTRIES_POPULATION_DESC));
+        processors.put("5", new CountriesList("PopulationOfContinentsByCountryWithLimit", QueryConstants.CONTINENT_POPULATION_DESC));
         processors.put("6", new CountriesList("PopulationOfRegionsByCountryWithLimit", QueryConstants.REGION_POPULATION_DESC));
         processors.put("7", new CitiesList( "PopulationOfCities", QueryConstants.CITY_POPULATION_DESC));
         processors.put("8", new CitiesList( "CitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
         processors.put("9", new CitiesList( "CitiesByRegion", QueryConstants.CITY_POPULATION_REGION_DESC));
+        processors.put("10", new CitiesList( "CitiesByCountry", QueryConstants.CITY_POPULATION_COUNTRY_DESC));
         processors.put("11", new CitiesList( "CitiesByDistrict", QueryConstants.CITY_POPULATION_DISTRICT_DESC));
         processors.put("12", new CitiesList( "TopCitiesPerPopulation", QueryConstants.CITY_POPULATION_DESC));
         processors.put("13", new CitiesList( "TopCitiesByContinent", QueryConstants.CITY_POPULATION_CONTINENT_DESC));
@@ -92,6 +95,7 @@ public class UserSelectionService {
                 put("3", "region");
                 put("6", "region");
                 put("9", "region");
+                put("10", "country");
                 put("11", "district");
                 put("14", "region");
                 put("15", "country");
@@ -115,10 +119,12 @@ public class UserSelectionService {
         System.out.println("2. All the countries in a continent organised by largest population to smallest");
         System.out.println("3. All the countries in a region organised by largest population to smallest");
         System.out.println("4. The top N populated countries in the world where N is provided by the user.");
+        System.out.println("5. The top N populated countries in a continent where N is provided by the user.");
         System.out.println("6. The top N populated countries in a region where N is provided by the user.");
         System.out.println("7. All cities in the world organised by largest population to smallest");
         System.out.println("8. All the cities in a continent organised by largest population to smallest");
         System.out.println("9. All the cities in a region organised by largest population to smallest");
+        System.out.println("10. All the cities in a country organised by largest population to smallest");
         System.out.println("11. All the cities in a district organised by largest population to smallest");
         System.out.println("12. The top N populated cities in the world where N is provided by the user.");
         System.out.println("13. The top N populated cities in a continent where N is provided by the user.");
