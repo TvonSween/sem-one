@@ -1,42 +1,39 @@
-name: A workflow for my App
+name: Main build
 on: push
 
 jobs:
   build:
-    name: Test Build Action
+    name: Hello world action
     runs-on: ubuntu-20.04
     steps:
+      # Checkout the code
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      # Set up JDK 11
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'adopt'
 
-      - name: Unit Tests
+      # Package with Maven (skip tests)
+      - name: Package with Maven
+        run: mvn package -DskipTests
+
+      # Unit test (will not fail if no tests are found)
+      - name: Unit test
         run: mvn test -DfailIfNoTests=false || true
 
-      - name: Package and Run Docker Compose
+      # Build and run Docker Compose
+      - name: Build and Run Docker Compose
         run: |
-          mvn package -DskipTests
-          docker-compose up --abort-on-container-exit
+          docker compose up --abort-on-container-exit
 
-      - name: View Logs
-        run: docker logs devops-app-1
+      # View logs from the running container
+      - name: View logs
+        run: docker logs devopscontainer
 
-      - name: Copy Output
-        run: docker container cp devops-app-1:/tmp/output ./
-
-      - name: List Directories
-        run: |
-          pwd
-          ls
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
-          publish_branch: output
+      # Optionally, you can remove the container after logs
+      - name: Clean up Docker container
+        run: docker compose down
