@@ -30,10 +30,6 @@ jobs:
         run: |
           docker compose up --abort-on-container-exit
 
-      # View logs from the running container
-      - name: View logs
-        run: docker logs devopscontainer
-
       # Optionally, you can remove the container after logs
       - name: Clean up Docker container
         run: docker compose down
