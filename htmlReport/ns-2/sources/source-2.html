@@ -1,0 +1,400 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > UserSelectionService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.napier.devops.helpers</a>
+</div>
+
+<h1>Coverage Summary for Class: UserSelectionService (com.napier.devops.helpers)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserSelectionService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/113)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserSelectionService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/128)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.napier.devops.helpers;
+&nbsp;
+&nbsp;import com.napier.devops.Reports;
+&nbsp;import com.napier.devops.reports.*;
+&nbsp;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * The {@code UserSelectionService} class manages user interactions for selecting
+&nbsp; * report types and processing their requests. It maps question IDs to their
+&nbsp; * corresponding report processing methods and facilitates user input.
+&nbsp; */
+&nbsp;public class UserSelectionService {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A map that associates question IDs with their respective report processors.
+&nbsp;     */
+<b class="nc">&nbsp;    private final Map&lt;String, IUserSelectionProcessor&gt; processors = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a {@code UserSelectionService} instance and initializes the
+&nbsp;     * mapping of question IDs to report processors.
+&nbsp;     */
+<b class="nc">&nbsp;    public UserSelectionService() {</b>
+<b class="nc">&nbsp;        processors.put(&quot;1&quot;, new CountriesList(&quot;PopulationOfCountries&quot;, QueryConstants.COUNTRIES_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;2&quot;, new CountriesList(&quot;PopulationOfContinentsByCountry&quot;, QueryConstants.CONTINENT_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;3&quot;, new CountriesList(&quot;PopulationOfRegionsByCountry&quot;, QueryConstants.REGION_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;4&quot;, new CountriesList(&quot;TopCountriesPerPopulation&quot;, QueryConstants.COUNTRIES_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;5&quot;, new CountriesList(&quot;PopulationOfContinentsByCountryWithLimit&quot;, QueryConstants.CONTINENT_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;6&quot;, new CountriesList(&quot;PopulationOfRegionsByCountryWithLimit&quot;, QueryConstants.REGION_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;7&quot;, new CitiesList( &quot;PopulationOfCities&quot;, QueryConstants.CITY_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;8&quot;, new CitiesList( &quot;CitiesByContinent&quot;, QueryConstants.CITY_POPULATION_CONTINENT_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;9&quot;, new CitiesList( &quot;CitiesByRegion&quot;, QueryConstants.CITY_POPULATION_REGION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;10&quot;, new CitiesList( &quot;CitiesByCountry&quot;, QueryConstants.CITY_POPULATION_COUNTRY_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;11&quot;, new CitiesList( &quot;CitiesByDistrict&quot;, QueryConstants.CITY_POPULATION_DISTRICT_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;12&quot;, new CitiesList( &quot;TopCitiesPerPopulation&quot;, QueryConstants.CITY_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;13&quot;, new CitiesList( &quot;TopCitiesByContinent&quot;, QueryConstants.CITY_POPULATION_CONTINENT_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;14&quot;, new CitiesList( &quot;TopCitiesByRegion&quot;, QueryConstants.CITY_POPULATION_REGION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;15&quot;, new CitiesList( &quot;TopCitiesByCountry&quot;, QueryConstants.CITY_POPULATION_COUNTRY_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;16&quot;, new CitiesList( &quot;TopCitiesByDistrict&quot;, QueryConstants.CITY_POPULATION_DISTRICT_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;17&quot;, new CapitalCitiesList( &quot;PopulationOfCapitalCities&quot;, QueryConstants.CITY_CAPITALS_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;18&quot;, new CapitalCitiesList( &quot;CapitalCitiesInContinentByPopulation&quot;, QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;19&quot;, new CapitalCitiesList( &quot;CapitalCitiesInRegionByPopulation&quot;, QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;20&quot;, new CapitalCitiesList( &quot;TopCapitalCitiesPerPopulation&quot;, QueryConstants.CITY_CAPITALS_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;21&quot;, new CapitalCitiesList( &quot;CapitalCitiesInContinentWithLimit&quot;, QueryConstants.CITY_CAPITALS_CONTINENT_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;22&quot;, new CapitalCitiesList( &quot;CapitalCitiesInRegionWithLimit&quot;, QueryConstants.CITY_CAPITALS_REGION_POPULATION_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;23&quot;, new PopulationInCitiesList( &quot;PopulationLivingNotLivingInCitiesPerContinent&quot;, QueryConstants.CONTINENT_LIVING_NOTLIVING_IN_CITY_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;24&quot;, new PopulationInCitiesList(&quot;PopulationLivingNotLivingInCitiesPerRegion&quot;, QueryConstants.REGION_LIVING_NOTLIVING_IN_CITY_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;25&quot;, new PopulationInCitiesList(&quot;PopulationLivingNotLivingInCitiesPerCountry&quot;, QueryConstants.COUNTRY_LIVING_NOTLIVING_IN_CITY_DESC));</b>
+<b class="nc">&nbsp;        processors.put(&quot;26&quot;, new PopulationList(&quot;TotalPopulationInWorld&quot;, QueryConstants.TOTAL_POPULATION_WORLD));</b>
+<b class="nc">&nbsp;        processors.put(&quot;27&quot;, new PopulationList(&quot;TotalPopulationInContinent&quot;, QueryConstants.TOTAL_POPULATION_CONTINENT));</b>
+<b class="nc">&nbsp;        processors.put(&quot;28&quot;, new PopulationList(&quot;TotalPopulationInRegion&quot;, QueryConstants.TOTAL_POPULATION_REGION));</b>
+<b class="nc">&nbsp;        processors.put(&quot;29&quot;, new PopulationList(&quot;TotalPopulationInCountry&quot;, QueryConstants.TOTAL_POPULATION_COUNTRY));</b>
+<b class="nc">&nbsp;        processors.put(&quot;30&quot;, new PopulationList(&quot;TotalPopulationInDistrict&quot;, QueryConstants.TOTAL_POPULATION_DISTRICT));</b>
+<b class="nc">&nbsp;        processors.put(&quot;31&quot;, new PopulationList(&quot;TotalPopulationInCity&quot;, QueryConstants.TOTAL_POPULATION_CITY));</b>
+<b class="nc">&nbsp;        processors.put(&quot;32&quot;, new LanguageWorldList(&quot;LanguageWorldPerPopulation&quot;, QueryConstants.LANGUAGE_PERCENTAGE_WORLD));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Processes the user selection based on the given question ID.
+&nbsp;     *
+&nbsp;     * @param questionId The ID of the question corresponding to the user&#39;s selection.
+&nbsp;     * @param report     The instance of the {@link Reports} class used to generate the report.
+&nbsp;     * @param con        The SQL connection to execute queries against the database.
+&nbsp;     * @param userInput  The additional user input required for specific questions.
+&nbsp;     * @param limit      The limit on the number of rows for queries that require it.
+&nbsp;     *
+&nbsp;     * @throws SQLException If an error occurs while executing the SQL query.
+&nbsp;     * @throws IllegalArgumentException If the provided question ID is not supported.
+&nbsp;     */
+&nbsp;    public void processUserSelection(String questionId, Reports report, Connection con, String userInput, String limit) throws SQLException {
+<b class="nc">&nbsp;        IUserSelectionProcessor processor = processors.get(questionId);</b>
+<b class="nc">&nbsp;        if (processor != null) {</b>
+<b class="nc">&nbsp;            processor.processUserSelection(report, con, userInput, limit);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Unsupported questionId: &quot; + questionId);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prompts the user to select a question ID and returns the user&#39;s selection along
+&nbsp;     * with any additional input needed.
+&nbsp;     *
+&nbsp;     * @return A {@link Map} containing the selected question ID and any extra user input.
+&nbsp;     */
+&nbsp;    public Map&lt;String, String&gt; getUserInput() {
+&nbsp;        // Set of question IDs that require extra user input
+<b class="nc">&nbsp;        final Set&lt;String&gt; questionsWithoutAnyUserInput = Set.of(&quot;1&quot;,&quot;4&quot;, &quot;7&quot;, &quot;12&quot;, &quot;17&quot;, &quot;20&quot;,&quot;23&quot;,&quot;24&quot;,&quot;25&quot;,&quot;26&quot;, &quot;32&quot;);</b>
+<b class="nc">&nbsp;        final Set&lt;String&gt; questionsWithLimit = Set.of(&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;12&quot;,&quot;13&quot;,&quot;14&quot;,&quot;15&quot;,&quot;16&quot;,&quot;20&quot;, &quot;21&quot;,&quot;22&quot;);</b>
+<b class="nc">&nbsp;        final Set&lt;String&gt; questionsForContinentCategory = Set.of(&quot;2&quot;,&quot;5&quot;,&quot;8&quot;,&quot;13&quot;, &quot;18&quot;, &quot;21&quot;,&quot;27&quot;);</b>
+<b class="nc">&nbsp;        final Map&lt;String, String&gt; categories = new HashMap&lt;&gt;() {</b>
+&nbsp;            {
+<b class="nc">&nbsp;                put(&quot;3&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;6&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;9&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;10&quot;, &quot;country&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;11&quot;, &quot;district&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;14&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;15&quot;, &quot;country&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;16&quot;, &quot;district&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;19&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;22&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;28&quot;, &quot;region&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;29&quot;, &quot;country&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;30&quot;, &quot;district&quot;);</b>
+<b class="nc">&nbsp;                put(&quot;31&quot;, &quot;city&quot;);</b>
+&nbsp;            }
+&nbsp;        };
+<b class="nc">&nbsp;        String questionSelected = &quot;&quot;;</b>
+<b class="nc">&nbsp;        String userInput = &quot;&quot;;</b>
+<b class="nc">&nbsp;        String limit = &quot;&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        Scanner keyboard = new Scanner(System.in);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Please select the type of report you would like to export:\n&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;1. All the countries in the world organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;2. All the countries in a continent organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;3. All the countries in a region organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;4. The top N populated countries in the world where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;5. The top N populated countries in a continent where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;6. The top N populated countries in a region where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;7. All cities in the world organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;8. All the cities in a continent organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;9. All the cities in a region organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;10. All the cities in a country organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;11. All the cities in a district organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;12. The top N populated cities in the world where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;13. The top N populated cities in a continent where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;14. The top N populated cities in a region where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;15. The top N populated cities in a country where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;16. The top N populated cities in a district where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;17. All capital cities in the world organised by largest population to smallest&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;18. All capital cities in a continent organised by largest population to smallest.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;19. All capital cities in a region organised by largest population to smallest.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;20. The top N populated capital cities in the world where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;21. The top N populated capital cities in a continent where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;22. The top N populated capital cities in a region where N is provided by the user.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;23. The population of people, people living in cities, and people not living in cities in each continent.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;24. The population of people, people living in cities, and people not living in cities in each region.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;25. The population of people, people living in cities, and people not living in cities in each country.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;26. The population of the world.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;27. The population of a continent.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;28. The population of a region.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;29. The population of a country.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;30. The population of a district.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;31. The population of a city.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;32. The number of people who speak &#39;Chinese&#39;, &#39;English&#39;, &#39;Hindi&#39;, &#39;Spanish&#39;, &#39;Arabic&#39; from greatest number to smallest, including the percentage of the world population.&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;\n&quot;);</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            questionSelected = read_range(keyboard, 1, 32);</b>
+<b class="nc">&nbsp;            if (!questionsWithoutAnyUserInput.contains(questionSelected)) {</b>
+<b class="nc">&nbsp;                if(questionsForContinentCategory.contains(questionSelected)) {</b>
+<b class="nc">&nbsp;                    userInput = getContinent();</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    userInput = getInput(categories.get(questionSelected));</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            // Get the response for the extra question - N
+<b class="nc">&nbsp;            if (questionsWithLimit.contains(questionSelected)) {</b>
+<b class="nc">&nbsp;                limit = getN();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;        } catch (InputMismatchException e) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid input. Please try again.\n&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return Map.of(</b>
+&nbsp;                &quot;question&quot;, questionSelected,
+&nbsp;                &quot;userInput&quot;, userInput,
+&nbsp;                &quot;limit&quot;, limit
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Asks the user if they want to see more data.
+&nbsp;     *
+&nbsp;     * @return {@code true} if the user wants to continue, {@code false} otherwise.
+&nbsp;     */
+&nbsp;    public boolean shouldSelect() {
+<b class="nc">&nbsp;        Scanner keyboard = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Would you like to view additional data? (Y/N)&quot;);</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            return keyboard.nextLine().equalsIgnoreCase(&quot;y&quot;);</b>
+<b class="nc">&nbsp;        } catch (InputMismatchException e) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prompts the user for the number of rows they wish to display.
+&nbsp;     *
+&nbsp;     * @return The number of rows specified by the user.
+&nbsp;     */
+&nbsp;    private static String getN() {
+<b class="nc">&nbsp;        Scanner keyboard = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Please specify the maximum number of rows to display (upper limit):&quot;);</b>
+<b class="nc">&nbsp;        return read_range(keyboard, 1, 100);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prompts the user to select a continent from a predefined list.
+&nbsp;     *
+&nbsp;     * @return The name of the selected continent.
+&nbsp;     */
+&nbsp;    private String getContinent() {
+<b class="nc">&nbsp;        String[] continents = {&quot;Asia&quot;, &quot;Africa&quot;, &quot;Europe&quot;, &quot;North America&quot;, &quot;South America&quot;, &quot;Oceania&quot;, &quot;Antarctica&quot;};</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Please specify the number of the continent you&#39;re interested in:&quot;);</b>
+<b class="nc">&nbsp;        Scanner keyboard = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; continents.length; i++) System.out.println((i+1) + &quot;: &quot; + continents[i]);</b>
+<b class="nc">&nbsp;        return continents[Integer.parseInt(read_range(keyboard, 1, 7))-1];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reads a number from the user within a specified range.
+&nbsp;     *
+&nbsp;     * @param scanner The {@link Scanner} instance for reading user input.
+&nbsp;     * @param low     The lower bound of the acceptable range.
+&nbsp;     * @param high    The upper bound of the acceptable range.
+&nbsp;     * @return The validated user input within the specified range.
+&nbsp;     */
+&nbsp;    private static String read_range(Scanner scanner, int low, int high) {
+<b class="nc">&nbsp;        int value = low - 1;</b>
+<b class="nc">&nbsp;        while (value &lt; low || value &gt; high) {</b>
+<b class="nc">&nbsp;            System.out.print(&quot;Please enter a value between &quot; + low + &quot; and &quot; + high + &quot;: &quot;);</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                value = Integer.parseInt(scanner.next());</b>
+&nbsp;            }
+<b class="nc">&nbsp;            catch (NumberFormatException e) {</b>
+<b class="nc">&nbsp;                value = 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return String.valueOf(value);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prompts the user to provide input for a specific category.
+&nbsp;     *
+&nbsp;     * @param category The name of the category for which input is required.
+&nbsp;     * @return The user-provided input.
+&nbsp;     */
+&nbsp;    private static String getInput (String category) {
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;Enter the name of the &quot; + category + &quot; you want to retrieve data for: &quot;);</b>
+<b class="nc">&nbsp;        return scanner.nextLine();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-13 19:23</div>
+</div>
+</body>
+</html>
