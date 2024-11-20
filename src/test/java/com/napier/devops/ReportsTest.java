@@ -1,15 +1,19 @@
 package com.napier.devops;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.sql.ResultSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReportsTest {
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
+
     }
 
     @AfterEach
@@ -17,6 +21,12 @@ class ReportsTest {
     }
 
     @Test
-    void extract() {
+    void extractTest() {
+        StringBuilder sb = new StringBuilder();
+        String[] cols = {"Country code", "Population"};
+        String filename = "PopulationOfCities";
+        ResultSet rset = null;
+        //extract(rset, filename, cols);
+
     }
 }

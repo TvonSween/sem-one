@@ -242,7 +242,7 @@ public class UserSelectionService {
      * @param category The name of the category for which input is required.
      * @return The user-provided input.
      */
-    private static String getInput (String category) {
+    protected static String getInput (String category) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the name of the " + category + " you want to retrieve data for: ");
         return scanner.nextLine();
