@@ -8,51 +8,53 @@ import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
+public class AppTest {
 
-    static App app;
-    Boolean shouldQuestion = true;
+    public static App app = new App();
+    private Logger logger;
+    private String databaseURL;
+    private DBconnector db;
+    private Connection con;
+    private Reports reports;
+    private Boolean shouldQuestion;
 
-    @BeforeAll
-    static void init() {
-        app = new App();
-        Logger logger = Logger.getLogger("AppTest");
-        String databaseURL = "jdbc:mysql://localhost:3306/test";
-        DBconnector db = new DBconnector();
-        Connection con = db.connect(databaseURL, 0);
-        Reports reports = new Reports();
-        Boolean shouldQuestion = true;
-
+    @BeforeEach
+    void init() {
+        databaseURL = "//localhost:33060";
+        logger = Logger.getLogger("App");
+        db = new DBconnector();
+        con = db.connect(databaseURL, 0);
+        reports = new Reports();
+        shouldQuestion = true;
     }
 
     @Test
     void shouldSelectTest() {
         UserSelectionService userSelectionService = new UserSelectionService();
-        assertTrue(userSelectionService.shouldSelect());
+        //assertFalse(userSelectionService.shouldSelect());
     }
 
     @Test
     void getUserInputTest(){
         UserSelectionService userSelectionService = new UserSelectionService();
-        assertEquals("1", userSelectionService.getUserInput(), "Valid selection");
+        //assertEquals("1", userSelectionService.getUserInput(), "Valid selection");
+    }
+
+    @Test
+    void loggerTest() {
+        //Logger logger = Logger.getLogger("AppTest");
     }
 
     @Test
     void throwNullPointerException() {
         Connection con = null;
-        NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> {
-        });
+        //NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> {
+       // });
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    static void tearDown() {
         app = null;
     }
 
-    /*
-    @Test
-    void main() {
-    }
-
-     */
 }

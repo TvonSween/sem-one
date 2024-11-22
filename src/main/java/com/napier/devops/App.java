@@ -13,7 +13,6 @@ import java.util.logging.Logger;
  * reports based on the user's selections.
  */
 public class App {
-
     /**
      * A logger instance used to log messages for the {@code App} class.
      */
