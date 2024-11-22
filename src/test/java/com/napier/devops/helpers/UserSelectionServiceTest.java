@@ -1,12 +1,14 @@
 package com.napier.devops.helpers;
 
-import com.google.protobuf.DoubleArrayList;
+import com.napier.devops.Reports;
 import com.napier.devops.reports.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,24 +17,28 @@ import static org.junit.Assert.assertThat;
 @DisplayName("User selection")
 @ExtendWith(SelectionParameterResolver.class)
 class UserSelectionServiceTest {
+    IUserSelectionProcessor processor;
     private CountriesList filename;
     private CountriesList countryQuery;
-    //private final Map<String, IUserSelectionProcessor> processors = new HashMap<>();
-    //public Map<String, String> inputs = new HashMap<>();
-    //String categoryTest;
+    //private  Map<String, IUserSelectionProcessor> processors = new HashMap<>();
+    private Map<String, String> inputs = new HashMap<>();
 
     @BeforeEach
     void init(Map<String, CountriesList> processors) {
-       // this.report = processors.get("PopulationOfCountries");
-       //this.countryQuery = processors.get();
-       // countriesList = new CountriesList(this.countryFilename.toString(), this.countryQuery.toString());
+        processor = new IUserSelectionProcessor() {
+            @Override
+            public void processUserSelection(Reports report, Connection con, String userInput, String limit) throws SQLException {
+                processor = processors.get("1");
+            }
+        };
     }
 
     @DisplayName("Country selection")
     @Test
     void CountrySelectionTest() {
-        assertThat(processors).containsKey("1").containsValues("PopulationOfCountries");
-
+        assertThat(processor)
+                .containsKey("1")
+                .containsValues("PopulationOfCountries");
 
     }
 
