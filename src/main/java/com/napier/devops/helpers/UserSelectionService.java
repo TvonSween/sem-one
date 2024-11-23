@@ -195,7 +195,7 @@ public class UserSelectionService {
      *
      * @return The number of rows specified by the user.
      */
-    private static String getN() {
+    public static String getN() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Please specify the maximum number of rows to display (upper limit):");
         return read_range(keyboard, 1, 100);
@@ -206,7 +206,7 @@ public class UserSelectionService {
      *
      * @return The name of the selected continent.
      */
-    private String getContinent() {
+    public String getContinent() {
         String[] continents = {"Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Antarctica"};
         System.out.println("Please specify the number of the continent you're interested in:");
         Scanner keyboard = new Scanner(System.in);
@@ -222,7 +222,7 @@ public class UserSelectionService {
      * @param high    The upper bound of the acceptable range.
      * @return The validated user input within the specified range.
      */
-    private static String read_range(Scanner scanner, int low, int high) {
+    public static String read_range(Scanner scanner, int low, int high) {
         int value = low - 1;
         while (value < low || value > high) {
             System.out.print("Please enter a value between " + low + " and " + high + ": ");
