@@ -36,6 +36,16 @@ public class CapitalCitiesList implements IUserSelectionProcessor {
     }
 
     /**
+     * Protected method to log severe errors, can be overridden in tests for verification.
+     *
+     * @param message The error message to log
+     * @param ex The exception that occurred
+     */
+    protected void logSevereError(String message, Throwable ex) {
+        logger.log(Level.SEVERE, message, ex);
+    }
+
+    /**
      * Processes the user selection by executing the SQL query and extracting the results
      * into a CSV file. If the user specifies a limit, the query will be modified to include
      * the limit on the number of results returned.
