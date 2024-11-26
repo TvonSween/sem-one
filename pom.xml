@@ -26,6 +26,7 @@
             <version>5.1.0</version>
             <scope>test</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -33,11 +34,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
+          <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -86,10 +87,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
-                <configuration>
-                    <failIfNoTests>false</failIfNoTests> <!-- Skip failure if no tests are found -->
-                    <skipTests>false</skipTests> <!-- Ensure that tests are not skipped unless explicitly told to -->
-                </configuration>
+                <!-- <configuration>
+                    <failIfNoTests>false</failIfNoTests> <!- Skip failure if no tests are found
+                    <skipTests>false</skipTests> <!- Ensure that tests are not skipped unless explicitly told to -->
                 <dependencies>
                     <dependency>
                           <groupId>org.junit.platform</groupId>
