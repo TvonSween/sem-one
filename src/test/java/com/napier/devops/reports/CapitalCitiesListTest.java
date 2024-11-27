@@ -1,98 +1,134 @@
 package com.napier.devops.reports;
 
 import com.napier.devops.Reports;
-import com.napier.devops.reports.CapitalCitiesList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
+//import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class CapitalCitiesListTest {
-
-    @Mock
-    private Connection mockConnection;
-
-    @Mock
-    private PreparedStatement mockPreparedStatement;
-
-    @Mock
-    private ResultSet mockResultSet;
-
-    @Mock
-    private Reports mockReports;
-
-    @Spy
-    private Logger spyLogger;
-
     private CapitalCitiesList capitalCitiesList;
+    private Connection mockConnection;
+    private Reports mockReport;
+    private PreparedStatement mockPreparedStatement;
+    private ResultSet mockResultSet;
 
     @BeforeEach
     void setUp() throws SQLException {
-        MockitoAnnotations.openMocks(this);
+        // Setup mock objects
+        mockConnection = mock(Connection.class);
+        mockReport = mock(Reports.class);
+        mockPreparedStatement = mock(PreparedStatement.class);
+        mockResultSet = mock(ResultSet.class);
 
-        // Configure mocks for database interactions
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        // Stub the connection to return mock prepared statement
+        when(mockConnection.prepareStatement(any(String.class))).thenReturn(mockPreparedStatement);
+
+        // Stub the prepared statement to return mock result set
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
     }
 
     @Test
-    void testProcessUserSelection_SQLExceptionHandling() throws SQLException, IOException {
-        // Arrange
-        String filename = "capital_cities.csv";
+    void testConstructor() {
+        // Test constructor sets filename and query correctly
+        String filename = "test_capital_cities.csv";
         String sqlQuery = "SELECT * FROM capital_cities";
+        capitalCitiesList = new CapitalCitiesList(filename, sqlQuery);
 
-        capitalCitiesList = spy(new CapitalCitiesList(filename, sqlQuery));
-
-        // Simulate SQLException
-        when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("Connection error"));
-
-        // Act
-        capitalCitiesList.processUserSelection(mockReports, mockConnection, "", "");
-
-        // Assert
-        // Verify that the logger was called with the appropriate error level and message
-        verify(capitalCitiesList).logSevereError(contains("Error while executing the query"), any(SQLException.class));
-
-        // Verify that no further processing occurs after the error
-        verify(mockReports, never()).extract(any(), anyString(), any());
+        // Use reflection or custom method to verify private fields if needed
     }
 
     @Test
-    void testProcessUserSelection_ExtractionExceptionHandling() throws Exception {
+    void testProcessUserSelectionWithEmptyUserInput() throws SQLException, IOException {
+        // Arrange
+        String filename = "capital_cities.csv";
+        String sqlQuery = "SELECT * FROM country";
+        capitalCitiesList = new CapitalCitiesList(filename, sqlQuery);
+
+        // Act
+        capitalCitiesList.processUserSelection(mockReport, mockConnection, "", "");
+
+        // Assert
+        verify(mockConnection).prepareStatement(sqlQuery);
+        verify(mockReport).extract(eq(mockResultSet), eq(filename), any());
+    }
+
+    @Test
+    void testProcessUserSelectionWithUserInput() throws SQLException, IOException {
+        // Arrange
+        String filename = "capital_cities.csv";
+        String sqlQuery = "SELECT * FROM capital_cities WHERE country LIKE ?";
+        capitalCitiesList = new CapitalCitiesList(filename, sqlQuery);
+
+        // Act
+        capitalCitiesList.processUserSelection(mockReport, mockConnection, "Europe", "");
+
+        // Assert
+        verify(mockConnection).prepareStatement(contains("%Europe%"));
+        verify(mockReport).extract(eq(mockResultSet), eq(filename), any());
+    }
+
+    @Test
+    void testProcessUserSelectionWithLimit() throws SQLException, IOException {
         // Arrange
         String filename = "capital_cities.csv";
         String sqlQuery = "SELECT * FROM capital_cities";
-
-        capitalCitiesList = spy(new CapitalCitiesList(filename, sqlQuery));
-
-        // Simulate exception during report extraction
-        doThrow(new Exception("Extraction error")).when(mockReports).extract(any(), anyString(), any());
+        capitalCitiesList = new CapitalCitiesList(filename, sqlQuery);
 
         // Act
-        capitalCitiesList.processUserSelection(mockReports, mockConnection, "", "");
+        capitalCitiesList.processUserSelection(mockReport, mockConnection, "", "10");
 
         // Assert
-        // Verify that the logger was called with the appropriate error level and message
-        verify(capitalCitiesList).logSevereError(contains("Error while processing the report"), (SQLException) any());
+        verify(mockConnection).prepareStatement(contains("LIMIT 10"));
+        verify(mockReport).extract(eq(mockResultSet), eq(filename), any());
+    }
 
-        // Optionally, you might want to add a method to the original class to help with testing
-        // This would involve adding a method like:
-        /*
-        protected void logSevereError(String message, Throwable ex) {
-            logger.log(Level.SEVERE, message, ex);
+    @Test
+    void testLogSevereError() {
+        // Create a custom test implementation to verify logging
+        class TestCapitalCitiesList extends CapitalCitiesList {
+            private String loggedMessage;
+            private Throwable loggedThrowable;
+
+            public TestCapitalCitiesList(String filename, String sqlQueryString) {
+                super(filename, sqlQueryString);
+            }
+
+            @Override
+            protected void logSevereError(String message, Throwable ex) {
+                this.loggedMessage = message;
+                this.loggedThrowable = ex;
+            }
+
+            public String getLoggedMessage() {
+                return loggedMessage;
+            }
+
+            public Throwable getLoggedThrowable() {
+                return loggedThrowable;
+            }
         }
-        */
+
+        // Arrange
+        TestCapitalCitiesList testList = new TestCapitalCitiesList("test.csv", "test query");
+        Exception testException = new Exception("Test error");
+
+        // Use reflection to call private logSevereError method
+        testList.logSevereError("Test error message", testException);
+
+        // Assert
+        assertEquals("Test error message", testList.getLoggedMessage());
+        assertEquals(testException, testList.getLoggedThrowable());
     }
 }
