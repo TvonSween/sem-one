@@ -2,6 +2,7 @@ package com.napier.devops.helpers;
 
 import com.napier.devops.Reports;
 import com.napier.devops.helpers.IUserSelectionProcessor;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -118,13 +119,14 @@ class UserSelectionProcessorTest {
         );
     }
 
-    //@Test
-    //void testProcessUserSelection_NullReports() {
-        // Act & Assert
-       // assertThrows(NullPointerException.class, () ->
-       //         processor.processUserSelection(null, mockConnection, "test", "10")
-       // );
-    //}
+    @Test
+    void testProcessUserSelection_NullReports() {
+        Reports mockReports1 = new Reports();
+        mockReports1 = null;
+        Assertions.<NullPointerException>assertThrows(NullPointerException.class, () ->
+                processor.processUserSelection(null, mockConnection, "test", "10")
+        );
+    }
 
     @Test
     void testProcessUserSelection_NullConnection() {
