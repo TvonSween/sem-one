@@ -1,5 +1,7 @@
 name: Main build
-on: push
+on: push:
+      branches:
+        - master
 
 jobs:
   UnitTests:
@@ -17,6 +19,26 @@ jobs:
           distribution: 'adopt'
       - name: Unit Tests
         run: mvn -Dtest=com.napier.devops.AppTest test
+
+  IntegrationTests:
+    name: Integration Test Build Action
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Integration Tests
+      runs: |
+        docker build -t database ./db
+        docker run --name world -dp 33060:3306 database
+        mvn -Dtest=com.napier.devops.AppIntegrationTest test
+        docker stop world
+        docker rm world
+        docker image rm database
 
   build:
     name: Build and Start Using docker-compose
