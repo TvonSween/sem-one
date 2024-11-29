@@ -1,0 +1,19 @@
+{
+  "name": "semgroupone",
+  "version": "1.0.0",
+  "description": "* Workflows ![workflow](https://github.com/TvonSween/sem-one/actions/workflows/main.yml/badge.svg)\r * Master ![Master build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml?branch=master)\r * Develop ![Develop build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml?branch=develop)\r * [![LICENSE](https://img.shields.io/github/license/TvonSween/sem-one.svg?style=flat-square)](https://github.com/TvonSween/sem-one/blob/master/LICENSE)\r * [![Releases](https://img.shields.io/github/release/TvonSween/sem-one/all.svg?style=flat-square)](https://github.com/TvonSween/sem-one/releases)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TvonSween/sem-one.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TvonSween/sem-one/issues"
+  },
+  "homepage": "https://github.com/TvonSween/sem-one#readme"
+}
