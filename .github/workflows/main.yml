@@ -1,7 +1,7 @@
 name: Main build
 on: push:
       branches:
-        - master
+        - test/integration-testing-setup
 
 jobs:
   UnitTests:
