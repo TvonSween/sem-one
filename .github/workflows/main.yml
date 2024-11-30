@@ -4,6 +4,7 @@ on:
     branches:
       - unit-testing
       - test/integration-testing-setup
+      - unit-testingv2
 
 jobs:
   UnitTests:
