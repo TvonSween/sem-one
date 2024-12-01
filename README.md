@@ -5,6 +5,7 @@
 * Develop ![Develop build status ](https://img.shields.io/github/actions/workflow/status/TvonSween/sem-one/main.yml?branch=develop)
 * [![LICENSE](https://img.shields.io/github/license/TvonSween/sem-one.svg?style=flat-square)](https://github.com/TvonSween/sem-one/blob/master/LICENSE)
 * [![Releases](https://img.shields.io/github/release/TvonSween/sem-one/all.svg?style=flat-square)](https://github.com/TvonSween/sem-one/releases)
+* [![codecov](https://codecov.io/gh/TvonSween/sem-one/branch/unit-testingv2/graph/badge.svg?token=F9MJEFMQRW)](https://codecov.io/gh/TvonSween/sem-one)
 
 ## Members
 * Kemar Hinds  - Developer
