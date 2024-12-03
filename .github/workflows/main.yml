@@ -2,7 +2,7 @@ name: A workflow for the Human Population Insights app
 on:
   push:
     branches:
-      - test/reports
+      - unit-testingv2
 jobs:
   UnitTests:
     name: Unit Tests
